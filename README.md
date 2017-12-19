@@ -55,12 +55,17 @@ The objective of this senior project is to learn about concepts of best programm
   +  https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
   
   +  http://r-pkgs.had.co.nz/
-
-
-**4.  Identify/discuss advantages and disadvantages to maintaining R functions in workspace (as currently done) versus in an R pacakge.**
   
 
-**5.  As much as time allows...  update ISCAM functions to adhere to good programming practices and/or utlize ggplot.  Some resources:**
+**4.  Write a vignette that accompanies the R package to illustrate it's usage.  Resources:**
+
++ http://r-pkgs.had.co.nz/vignettes.html
+
+
+**5.  Identify/discuss advantages and disadvantages to maintaining R functions in workspace (as currently done) versus in an R pacakge.**
+  
+
+**6.  As much as time allows...  update ISCAM functions to adhere to good programming practices and/or utlize ggplot.  Some resources:**
 
   +  https://www.datacamp.com/courses/introduction-to-the-tidyverse
   
