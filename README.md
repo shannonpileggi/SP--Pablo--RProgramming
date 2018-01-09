@@ -6,7 +6,7 @@
 
 ### Objective
 
-The objective of this senior project is to learn about concepts of best programming practices and version control while building an R package to host the graphing functions that accompanies the Rossman and Chance ISMA textbook.
+The objective of this senior project is to learn about concepts of best programming practices and version control while building an R package to host the graphing functions that accompanies the Rossman and Chance ISCAM textbook.
 
 
 ### Deliverables
