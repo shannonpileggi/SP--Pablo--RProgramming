@@ -61,7 +61,7 @@ The objective of this senior project is to learn about concepts of best programm
 
 + http://r-pkgs.had.co.nz/vignettes.html
 
-+ Look into pkgdown package as an additional source of documentaion (http://pkgdown.r-lib.org/index.html)
++ Look into pkgdown package as an additional source of documentation (http://pkgdown.r-lib.org/index.html)
 
 
 **5.  Identify/discuss advantages and disadvantages to maintaining R functions in workspace (as currently done) versus in an R pacakge.**
