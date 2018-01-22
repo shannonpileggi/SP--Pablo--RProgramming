@@ -44,6 +44,8 @@ The objective of this senior project is to learn about concepts of best programm
   
   + Learn about how to write R functions: https://www.datacamp.com/courses/writing-functions-in-r 
   
+  + Look into using the roxygen package to document code: https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html
+  
   
   
 **3.  Adapt the ISCAM functions (http://www.rossmanchance.com/iscam3/files.html) to an R package.  Here are some resources:**
