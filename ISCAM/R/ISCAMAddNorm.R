@@ -1,14 +1,15 @@
-#' ISCAMAddExp Function
+#' ISCAMAddNorm Function
 #'
 #' This function creates a histogram of the inputted variable and overlays 
-#' an exponential density function with lambda = 1/mean.
+#' a normal density function.
 #' @param x a vector of numeric values.
-#' @keywords exponential
+#' @keywords normal
 #' @export
 #' @examples
-#' ISCAMAddExp(x)
+#' ISCAMAddNorm(x)
 
-ISCAMAddExp <- function(x){
+ISCAMAddNorm <- function(x){
+  #lines(myseq, dnorm(myseq, mean(x), sd(x))) can i use this with ggplot?
   df <- data.frame(x)
   min = 0
   max = max(x)
@@ -20,8 +21,8 @@ ISCAMAddExp <- function(x){
                    fill = "white") +
     scale_y_continuous(labels = percent) +
     stat_function(geom = "line", 
-                  fun = dexp, 
-                  args = list(x = myseq, rate = 1/mean(x)), 
+                  fun = dnorm, 
+                  #args = list(x = myseq, mean = mean(x), sd = sd(x)), 
                   colour = "red") +
     labs(y = "Percent")
 }
