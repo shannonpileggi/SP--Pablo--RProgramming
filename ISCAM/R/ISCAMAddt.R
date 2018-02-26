@@ -10,18 +10,14 @@
 
 ISCAMAddt <- function(x, df){
   data <- data.frame(x)
-  min = 0
-  max = max(x)
-  myseq = seq(min, max, .001)
   ggplot(data, aes(x)) +
-    geom_histogram(aes(y = (..count..)/sum(..count..)), 
-                   binwidth = 0.1, 
+    geom_histogram(aes(y = (..density..)), 
+                   binwidth = (max(x)-min(x))/20, 
                    colour = "black", 
                    fill = "white") +
-    scale_y_continuous(labels = percent) +
     stat_function(geom = "line", 
                   fun = dt, 
-                  args = list(x = myseq, df = df), 
+                  args = list(df = df), 
                   colour = "red") +
-    labs(y = "Percent")
+    labs(y = "Density", x = deparse(substitute(x)))
 }

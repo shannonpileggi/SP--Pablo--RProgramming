@@ -10,18 +10,16 @@
 
 ISCAMAddExp <- function(x){
   df <- data.frame(x)
-  min = 0
-  max = max(x)
-  myseq = seq(min, max, .001)
   ggplot(df, aes(x)) +
-    geom_histogram(aes(y = (..count..)/sum(..count..)), 
-                   binwidth = 0.1, 
+    geom_histogram(aes(y = (..density..)), 
+    #geom_histogram(aes(y = (..count..)/sum(..count..)), if you want percents on y-axis
+                   binwidth = (max(x)-min(x))/20, 
                    colour = "black", 
                    fill = "white") +
-    scale_y_continuous(labels = percent) +
+    #scale_y_continuous(labels = percent) +
     stat_function(geom = "line", 
                   fun = dexp, 
-                  args = list(x = myseq, rate = 1/mean(x)), 
+                  args = list(rate = 1/mean(x)), 
                   colour = "red") +
-    labs(y = "Percent")
+    labs(y = "Density", x = deparse(substitute(x)))
 }

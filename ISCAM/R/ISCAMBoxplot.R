@@ -2,8 +2,8 @@
 #'
 #' This function displays horizontal boxplot(s). 
 #' Optional: A second, categorical variable can also be specified and values will be calculated separately for each group. 
-#' @param x a continuous variable.
-#' @param explanatory a categorical variable.
+#' @param x a quantitative response variable.
+#' @param explanatory a categorical explanatory variable.
 #' @param names used to specify the horizontal and vertical axis labels, respectively.
 #' @keywords boxplot
 #' @export
@@ -23,7 +23,7 @@ ISCAMBoxplot <- function(x, explanatory = NULL, names = NULL){
       labs(y = ifelse(is.null(names), deparse(substitute(x)), names))
   }
   else{
-    ggplot(df, aes(x = explanatory, y = x, color = explanatory)) + 
+    ggplot(df, aes(x = as.factor(explanatory), y = x, group = as.factor(explanatory), color = as.factor(explanatory))) + 
       geom_boxplot(outlier.colour="red", outlier.shape=8,
                    outlier.size=2) +
       coord_flip() +
