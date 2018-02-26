@@ -20,7 +20,8 @@ ISCAMBoxplot <- function(x, explanatory = NULL, names = NULL){
       geom_boxplot(outlier.colour="red", outlier.shape=8,
                    outlier.size=2) +
       coord_flip() +
-      labs(y = ifelse(is.null(names), deparse(substitute(x)), names))
+      labs(y = ifelse(is.null(names), deparse(substitute(x)), names),
+           x = "")
   }
   else{
     ggplot(df, aes(x = as.factor(explanatory), y = x, group = as.factor(explanatory), color = as.factor(explanatory))) + 
