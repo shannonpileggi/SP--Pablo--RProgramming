@@ -12,8 +12,8 @@
 #' @keywords binomial power
 #' @export
 #' @examples
-#' iscambinompower(.05, 30, 0.5, alternative = "above")
-#' iscambinompower(.10, 55, 0.10, alternative = "below")
+#' iscambinompower(.05, 30, 0.5, alternative = "greater")
+#' iscambinompower(.10, 55, 0.10, alternative = "less")
 #' iscambinompower(.05, 144, 0.40, alternative = "two.sided")
 
 iscambinompower <- function(LOS, n, prob1, alternative, prob2=NULL){

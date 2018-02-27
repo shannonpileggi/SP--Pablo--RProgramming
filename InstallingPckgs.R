@@ -5,3 +5,11 @@ library(roxygen2)
 
 setwd("C:/Users/noell/Documents/SP--Pablo--RProgramming")
 create("ISCAM")
+setwd("./ISCAM")
+document()
+setwd("..")
+install("ISCAM")
+#making package for all existing functions
+library(ISCAM)
+library(ggplot2)
+library(gridExtra)

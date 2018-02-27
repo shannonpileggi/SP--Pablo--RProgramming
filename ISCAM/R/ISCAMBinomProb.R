@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #' ISCAMBinomProb(20, 30, 0.5, lower.tail = TRUE)
-#' ISCAMBinomProb(10, 55, 0.10, lower.tail = FALSE)
+#' ISCAMBinomProb(6, 20, 0.4, lower.tail = FALSE)
 
 ISCAMBinomProb <- function(k, n, prob, lower.tail){
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob)) #graph's main title

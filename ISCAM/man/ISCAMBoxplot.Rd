@@ -7,9 +7,9 @@
 ISCAMBoxplot(x, explanatory = NULL, names = NULL)
 }
 \arguments{
-\item{x}{a continuous variable.}
+\item{x}{a quantitative response variable.}
 
-\item{explanatory}{a categorical variable.}
+\item{explanatory}{a categorical explanatory variable.}
 
 \item{names}{used to specify the horizontal and vertical axis labels, respectively.}
 }

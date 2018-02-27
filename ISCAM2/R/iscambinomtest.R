@@ -9,7 +9,7 @@
 #' @keywords binomial
 #' @export
 #' @examples
-#' iscambinomtest(20, 35, alternative = "less")
+#' iscambinomtest(20, 35, alternative = "less", hypothesized=0.5)
 #' iscambinomtest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
 
 iscambinomtest <- function(observed, n, hypothesized=NULL, alternative, conf.level=NULL){

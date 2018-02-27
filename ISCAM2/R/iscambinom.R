@@ -6,7 +6,7 @@
 #' @param prob probability of interest
 #' @param n number of trials (zero or more)
 #' @param pi probability of success on each trial
-#' @param lower.tail logical; if TRUE, probabilities are  P[X ??? k], otherwise, P[X > k]
+#' @param lower.tail logical; if TRUE, probabilities are  P[X <= k], otherwise, P[X > k]
 #' @keywords binomial
 #' @export
 #' @examples

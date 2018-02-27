@@ -7,7 +7,7 @@
 #' @keywords t
 #' @export
 #' @examples
-#' iscamaddt(x, 3)
+#' iscamaddtnorm(x, 3)
 
 
 iscamaddtnorm <- function(x, df){
