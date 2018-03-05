@@ -17,7 +17,7 @@ ISCAMBinomProb <- function(k, n, prob, lower.tail){
   if (lower.tail){
     this.prob <- pbinom(k, n, prob) #calculating binomial probability
     showprob <- format(this.prob, digits=4) #formatting probability to include only 4 sig. figs.
-    mySubtitle <- paste("P(X <=", k, ") =", showprob) #creating subtitle
+    mySubtitle <- paste("P(X \u2264", k, ") =", showprob) #creating subtitle
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob)) #putting data into data frame
     plot1 <- ggplot(df, aes(x = x, y = y)) + 
              geom_bar(stat = "identity", 
@@ -27,20 +27,20 @@ ISCAMBinomProb <- function(k, n, prob, lower.tail){
              geom_bar(stat = "identity", #fills in part of histogram
                       data = subset(df, x <= k), 
                       colour="black", 
-                      fill="red",
+                      fill="#3366FF",
                       alpha = .7) +
              labs(x = "Number of Successess",
                   y = "Probability",
                   title = myTitle, 
                   subtitle = mySubtitle) + 
             theme_bw(16, "serif") + 
-            theme(plot.subtitle=element_text(color="red"))
+            theme(plot.subtitle=element_text(color="#3366FF"))
     cat("Probability", k, "and below =", this.prob, "\n") #output the binom. prob.
   }
   if (!lower.tail){
     this.prob <- 1 - pbinom(k-1, n, prob)
     showprob <- format(this.prob, digits=4)
-    mySubtitle <- paste("P(X >=", k, ") =", showprob)
+    mySubtitle <- paste("P(X \u2265", k, ") =", showprob)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob))
     plot1 <- ggplot(df, aes(x = x, y = y)) + 
              geom_bar(stat = "identity", 
@@ -50,16 +50,15 @@ ISCAMBinomProb <- function(k, n, prob, lower.tail){
              geom_bar(stat = "identity", 
                      data = subset(df, x >= k), 
                      colour="black", 
-                     fill="red",
+                     fill="#3366FF",
                      alpha = .7)+
              labs(x = "Number of Successes",
                   y = "Probability", 
                   title = myTitle,
                   subtitle = mySubtitle) + 
              theme_bw(16, "serif") + 
-             theme(plot.subtitle=element_text(color="red"))
+             theme(plot.subtitle=element_text(color="#3366FF"))
     cat("Probability", k, "and above =", this.prob, "\n")
   }
   print(plot1)
-  return(this.prob)
 }

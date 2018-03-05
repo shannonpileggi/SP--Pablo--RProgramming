@@ -5,7 +5,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     rr=qbinom(LOS, n, prob1)-1
     this.prob1=pbinom(rr, n, prob1)
     showprob1=format(this.prob1, digits=4)
-    mySubtitle <- paste("P(X <=", rr, ") =", showprob1)
+    mySubtitle <- paste("P(X \u2264", rr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
     plot1 <- ggplot(df, aes(x = x, y = y)) + 
       geom_bar(stat = "identity", 
@@ -28,7 +28,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     rr=qbinom(LOS, n, prob1, FALSE)+1
     this.prob1=1-pbinom(rr-1, n, prob1)
     showprob1=format(this.prob1, digits=4)
-    mySubtitle <- paste("P(X >=", rr, ") =", showprob1)
+    mySubtitle <- paste("P(X \u2265", rr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
     plot1 <- ggplot(df, aes(x = x, y = y)) + 
       geom_bar(stat = "identity", 
@@ -54,7 +54,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     upperprob1=pbinom(upperrr-1, n, prob1, FALSE)
     showlowerprob1=format(lowerprob1, digits=4); showupperprob1=format(upperprob1, digits=4)
     showprob1=format(lowerprob1+upperprob1, digits=4)
-    mySubtitle <- paste("P(X<=",  lowerrr, ")+P(X>=",upperrr, ") =", showlowerprob1, "+", showupperprob1, "\n =", showprob1)
+    mySubtitle <- paste("P(X \u2264",  lowerrr, ")+P(X \u2265",upperrr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
     plot1 <- ggplot(df, aes(x = x, y = y)) + 
       geom_bar(stat = "identity", 
@@ -79,7 +79,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     if (alternative=="less") {
       this.prob2=pbinom(rr, n, prob2)
       showprob2=format(this.prob2, digits=4)
-      mySubtitle2 <- paste("P(X<=", rr, ") =", showprob2)
+      mySubtitle2 <- paste("P(X \u2264", rr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
       plot2 <- ggplot(df, aes(x = x, y = y)) + 
         geom_bar(stat = "identity", 
@@ -101,7 +101,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     else if (alternative=="greater"){
       this.prob2=1-pbinom(rr-1, n, prob2)
       showprob2=format(this.prob2, digits=4)
-      mySubtitle2 <- paste("P(X >=", rr, ") =", showprob2)
+      mySubtitle2 <- paste("P(X \u2265", rr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
       plot2 <- ggplot(df, aes(x = x, y = y)) + 
         geom_bar(stat = "identity", 
@@ -123,7 +123,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     else if (alternative=="two.sided"){
       this.prob2=pbinom(lowerrr, n, prob2)+pbinom(upperrr-1, n, prob2, FALSE)
       showprob2=format(this.prob2, digits=4)
-      mySubtitle2 <- paste("P(X<=",  lowerrr, ")+P(X>=",upperrr, ")\n =", showprob2)
+      mySubtitle2 <- paste("P(X \u2264",  lowerrr, ")+P(X \u2265",upperrr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
       plot2 <- ggplot(df, aes(x = x, y = y)) + 
         geom_bar(stat = "identity", 
