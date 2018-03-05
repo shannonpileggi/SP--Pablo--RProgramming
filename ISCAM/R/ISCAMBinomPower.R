@@ -1,3 +1,21 @@
+#' ISCAMBinomPower Function
+#'
+#' This function determines the rejection region corresponding to the level of 
+#' significance and the first probability and shows the second distribution shading 
+#' its corresponding region.  
+#' @param LOS level of significance
+#' @param n number of trials (zero or more)
+#' @param prob1 probability of success on each trial
+#' @param alternative allows you to specify whether you want to find the probability 
+#' "less" or "greater" or a symmetric "two.sided" probability 
+#' @param prob2 NULL or a second probability
+#' @keywords binomial power rejection region
+#' @export
+#' @examples
+#' ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
+#' ISCAMBinomPower(.10, 55, 0.10, alternative = "less")
+#' ISCAMBinomPower(.05, 20, 0.5, "two.sided", 0.6)
+
 ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
   thisx = 0:n
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob1))
@@ -7,7 +25,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     showprob1=format(this.prob1, digits=4)
     mySubtitle <- paste("P(X \u2264", rr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
-    plot1 <- ggplot(df, aes(x = x, y = y)) + 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
       geom_bar(stat = "identity", 
                col = "black", 
                fill = "grey",
@@ -15,14 +33,14 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
       geom_bar(stat = "identity", #fills in part of histogram
                data = subset(df, x <= rr), 
                colour="black", 
-               fill="red",
+               fill="#007f80",
                alpha = .7) +
       labs(x = "Number of Successess",
            y = "Probability",
            title = myTitle, 
            subtitle = mySubtitle) + 
       theme_bw(16, "serif") + 
-      theme(plot.subtitle=element_text(color="red"))
+      theme(plot.subtitle=element_text(color="#007f80"))
   }
   else if (alternative=="greater"){
     rr=qbinom(LOS, n, prob1, FALSE)+1
@@ -30,7 +48,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     showprob1=format(this.prob1, digits=4)
     mySubtitle <- paste("P(X \u2265", rr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
-    plot1 <- ggplot(df, aes(x = x, y = y)) + 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
       geom_bar(stat = "identity", 
                col = "black", 
                fill = "grey",
@@ -38,14 +56,14 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
       geom_bar(stat = "identity", #fills in part of histogram
                data = subset(df, x >= rr), 
                colour="black", 
-               fill="red",
+               fill="#007f80",
                alpha = .7) +
       labs(x = "Number of Successess",
            y = "Probability",
            title = myTitle, 
            subtitle = mySubtitle) + 
       theme_bw(16, "serif") + 
-      theme(plot.subtitle=element_text(color="red"))
+      theme(plot.subtitle=element_text(color="#007f80"))
   }
   else if (alternative=="two.sided"){
     lowerrr=qbinom(LOS/2, n, prob1)-1
@@ -56,7 +74,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
     showprob1=format(lowerprob1+upperprob1, digits=4)
     mySubtitle <- paste("P(X \u2264",  lowerrr, ")+P(X \u2265",upperrr, ") =", showprob1)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
-    plot1 <- ggplot(df, aes(x = x, y = y)) + 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
       geom_bar(stat = "identity", 
                col = "black", 
                fill = "grey",
@@ -64,14 +82,14 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
       geom_bar(stat = "identity", 
                data = subset(df, x <= lowerrr | x >= upperrr), 
                colour="black", 
-               fill="red",
+               fill="#007f80",
                alpha = .7) +
       labs(x = "Number of Successess",
            y = "Probability",
            title = myTitle, 
            subtitle = mySubtitle) + 
       theme_bw(16, "serif") + 
-      theme(plot.subtitle=element_text(color="red"))
+      theme(plot.subtitle=element_text(color="#007f80"))
   }
   else stop("Check input for alternative")
   if (!is.null(prob2)){
@@ -81,7 +99,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
       showprob2=format(this.prob2, digits=4)
       mySubtitle2 <- paste("P(X \u2264", rr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
-      plot2 <- ggplot(df, aes(x = x, y = y)) + 
+      plot2 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
         geom_bar(stat = "identity", 
                  col = "black", 
                  fill = "grey",
@@ -89,21 +107,21 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
         geom_bar(stat = "identity", #fills in part of histogram
                  data = subset(df, x <= rr), 
                  colour="black", 
-                 fill="red",
+                 fill="#007f80",
                  alpha = .7) +
         labs(x = "Number of Successess",
              y = "Probability",
              title = myTitle2, 
              subtitle = mySubtitle2) + 
         theme_bw(16, "serif") + 
-        theme(plot.subtitle=element_text(color="red"))
+        theme(plot.subtitle=element_text(color="#007f80"))
     }
     else if (alternative=="greater"){
       this.prob2=1-pbinom(rr-1, n, prob2)
       showprob2=format(this.prob2, digits=4)
       mySubtitle2 <- paste("P(X \u2265", rr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
-      plot2 <- ggplot(df, aes(x = x, y = y)) + 
+      plot2 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
         geom_bar(stat = "identity", 
                  col = "black", 
                  fill = "grey",
@@ -111,21 +129,21 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
         geom_bar(stat = "identity", #fills in part of histogram
                  data = subset(df, x >= rr), 
                  colour="black", 
-                 fill="red",
+                 fill="#007f80",
                  alpha = .7) +
         labs(x = "Number of Successess",
              y = "Probability",
              title = myTitle2, 
              subtitle = mySubtitle2) + 
         theme_bw(16, "serif") + 
-        theme(plot.subtitle=element_text(color="red"))
+        theme(plot.subtitle=element_text(color="#007f80"))
     }
     else if (alternative=="two.sided"){
       this.prob2=pbinom(lowerrr, n, prob2)+pbinom(upperrr-1, n, prob2, FALSE)
       showprob2=format(this.prob2, digits=4)
       mySubtitle2 <- paste("P(X \u2264",  lowerrr, ")+P(X \u2265",upperrr, ") =", showprob2)
       df <- data.frame(x = thisx, y = dbinom(thisx, n, prob2))
-      plot2 <- ggplot(df, aes(x = x, y = y)) + 
+      plot2 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
         geom_bar(stat = "identity", 
                  col = "black", 
                  fill = "grey",
@@ -133,14 +151,14 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2=NULL){
         geom_bar(stat = "identity", 
                  data = subset(df, x <= lowerrr | x >= upperrr), 
                  colour="black", 
-                 fill="red",
+                 fill="#007f80",
                  alpha = .7) +
         labs(x = "Number of Successess",
              y = "Probability",
              title = myTitle2, 
              subtitle = mySubtitle2) + 
         theme_bw(16, "serif") + 
-        theme(plot.subtitle=element_text(color="red"))
+        theme(plot.subtitle=element_text(color="#007f80"))
     }
     else stop("Check input for alternative")
     grid.arrange(plot1, plot2, nrow=2)
