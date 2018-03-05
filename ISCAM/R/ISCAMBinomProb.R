@@ -19,8 +19,8 @@ ISCAMBinomProb <- function(k, n, prob, lower.tail){
     showprob <- format(this.prob, digits=4) #formatting probability to include only 4 sig. figs.
     mySubtitle <- paste("P(X \u2264", k, ") =", showprob) #creating subtitle
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob)) #putting data into data frame
-    plot1 <- ggplot(df, aes(x = x, y = y)) + 
-             geom_bar(stat = "identity", 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
+             geom_bar(stat = "identity",
                       col = "black", 
                       fill = "grey",
                       alpha = .2) + 
@@ -42,7 +42,7 @@ ISCAMBinomProb <- function(k, n, prob, lower.tail){
     showprob <- format(this.prob, digits=4)
     mySubtitle <- paste("P(X \u2265", k, ") =", showprob)
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob))
-    plot1 <- ggplot(df, aes(x = x, y = y)) + 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
              geom_bar(stat = "identity", 
                       col = "black", 
                       fill = "grey",
