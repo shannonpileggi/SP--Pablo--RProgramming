@@ -26,7 +26,7 @@ its corresponding region.
 \examples{
 ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
 ISCAMBinomPower(.10, 55, 0.10, alternative = "less")
-ISCAMBinomPower(.05, 144, 0.40, alternative = "two.sided")
+ISCAMBinomPower(.05, 20, 0.5, "two.sided", 0.6)
 }
 \keyword{binomial}
 \keyword{power}
