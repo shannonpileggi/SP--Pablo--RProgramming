@@ -25,7 +25,10 @@ ISCAMChiSqProb <- function(xval, df){
        title = mytitle,
        subtitle = mysubtitle) +
     theme_bw(12, "serif") + 
-    theme(plot.subtitle=element_text(color="dodgerblue4")) +
+    theme(plot.subtitle=element_text(color="dodgerblue4"),
+          axis.title.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks.y=element_blank()) +
     stat_function(fun = dchisq,
                   args = list(df = df),
                   xlim = c(xval,maxx),
