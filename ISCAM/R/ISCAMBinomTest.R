@@ -40,7 +40,7 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
       theme_bw(16, "serif") + 
       theme(plot.subtitle=element_text(color="#3366FF"))
   }
-  else if (alternative =="less"){
+  else if (alternative =="greater"){
     this.prob <- 1 - pbinom(observed - 1, n, hypothesized)
     showprob <- format(this.prob, digits=4)
     mySubtitle <- paste("P-value =", showprob)
@@ -63,19 +63,29 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
       theme(plot.subtitle=element_text(color="#3366FF"))
   }
   else if (alternative == "two.sided"){
-    this.prob <- 2*(1 - pbinom(observed - 1, n, hypothesized))
-    showprob <- format(this.prob, digits=4)
-    mySubtitle <- paste("P-value =", showprob)
+    
+    all.probs<-dbinom(0:n, prob=hypothesized, size=n)
+    # probability that the outcome is x=2
+    prob.x<-dbinom(x=observed, prob=hypothesized, size=n)
+    
+    # probability of all outcomes that have a probability lower than or equal to the probability of the outcome 2 (prob.x) 
+    p.value<-sum(all.probs[all.probs <= prob.x])
+    p.value
+    
+    #this.prob <- 2*(1 - pbinom(observed - 1, n, hypothesized))
+    showprob <- format(p.value, digits=4)
+    mySubtitle <- paste("Two-sided p-value =", showprob)
     phat <- observed/n
-    upper <- (1-phat)*n
-    df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
+    upper <- ifelse((1-phat)*n > observed, (1-phat)*n, observed)
+    lower <- ifelse((1-phat)*n < observed, (1-phat)*n, observed)
+    df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized))
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) +
       geom_bar(stat = "identity",
                col = "black",
                fill = "grey",
                alpha = .2) +
       geom_bar(stat = "identity",
-               data = subset(df, x <= observed | x >= upper),
+               data = subset(df, x <= lower | x >= upper),
                colour="black",
                fill="#007f80",
                alpha = .7) +
@@ -98,8 +108,8 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
   #calculating the CI: 
   if (conf.level){
     phat <- observed/n
-    lower <- phat - qnorm(conf.level)*sqrt((1/n)*phat*(1-phat))
-    upper <- phat + qnorm(conf.level)*sqrt((1/n)*phat*(1-phat))
+    lower <- phat - qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
+    upper <- phat + qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
     cat(100*conf.level, "% Confidence interval for pi: (", lower,",", upper,")")
   }
 }
