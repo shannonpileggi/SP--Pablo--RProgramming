@@ -12,17 +12,23 @@
 #' ISCAMBinomTest(20, 35, alternative = "less", hypothesized=0.5)
 #' ISCAMBinomTest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
 
-#ask about hypothesized being null? what happens?
+
 ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = NULL){
   if (observed < 1) {observed <- round(n*observed)}
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=hypothesized)) #graph's main title
   thisx <- 0:n #range of data (number of trials) 
+  df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized)) #putting data into data frame
+  
+  binomtest <- binom.test(observed, n, hypothesized, alternative, conf.level)
+  CI <- binomtest$conf.int
+  pvalue <- binomtest$p.value
+  showprob <- format(pvalue, digits = 4)
   
   if (alternative =="less"){
-    this.prob <- pbinom(observed, n, hypothesized) #calculating binomial probability
-    showprob <- format(this.prob, digits=4) #formatting probability to include only 4 sig. figs.
+    #this.prob <- pbinom(observed, n, hypothesized) #calculating binomial probability
+    #showprob <- format(this.prob, digits=4) #formatting probability to include only 4 sig. figs.
     mySubtitle <- paste("p-value =", showprob) #creating subtitle
-    df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized)) #putting data into data frame
+    
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
       geom_bar(stat = "identity",
                col = "black", 
@@ -41,10 +47,9 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
       theme(plot.subtitle=element_text(color="#3366FF"))
   }
   else if (alternative =="greater"){
-    this.prob <- 1 - pbinom(observed - 1, n, hypothesized)
-    showprob <- format(this.prob, digits=4)
+    #this.prob <- 1 - pbinom(observed - 1, n, hypothesized)
+    #showprob <- format(this.prob, digits=4)
     mySubtitle <- paste("P-value =", showprob)
-    df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized))
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
       geom_bar(stat = "identity", 
                col = "black", 
@@ -64,21 +69,21 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
   }
   else if (alternative == "two.sided"){
     
-    all.probs<-dbinom(0:n, prob=hypothesized, size=n)
+    #all.probs<-dbinom(0:n, prob=hypothesized, size=n)
     # probability that the outcome is x=2
-    prob.x<-dbinom(x=observed, prob=hypothesized, size=n)
+    #prob.x<-dbinom(x=observed, prob=hypothesized, size=n)
     
     # probability of all outcomes that have a probability lower than or equal to the probability of the outcome 2 (prob.x) 
-    p.value<-sum(all.probs[all.probs <= prob.x])
-    p.value
+    #p.value<-sum(all.probs[all.probs <= prob.x])
+    #p.value
     
-    #this.prob <- 2*(1 - pbinom(observed - 1, n, hypothesized))
-    showprob <- format(p.value, digits=4)
+   
+    #showprob <- format(p.value, digits=4)
     mySubtitle <- paste("Two-sided p-value =", showprob)
     phat <- observed/n
-    upper <- ifelse((1-phat)*n > observed, (1-phat)*n, observed)
-    lower <- ifelse((1-phat)*n < observed, (1-phat)*n, observed)
-    df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized))
+    phatdiff <- abs(phat - hypothesized)
+    upper <- ifelse(phat > hypothesized, phat, hypothesized + phatdiff)*n
+    lower <- ifelse(phat < hypothesized, phat, hypothesized - phatdiff)*n
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) +
       geom_bar(stat = "identity",
                col = "black",
@@ -97,6 +102,7 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
       theme(plot.subtitle=element_text(color="#007f80"))
   }
   print(plot1)
+  #return(c(upper, lower))
   cat("\n", "Exact Binomial Test\n", sep="","\n")
   statistic <- signif(observed/n, 4)
   cat(paste("Data: observed successes = ", observed, ", sample size = ", n, ", sample proportion = ", statistic, "\n\n", sep=""))
@@ -106,10 +112,11 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
   cat(paste("p-value:", showprob, sep=" "), "\n")
   
   #calculating the CI: 
-  if (conf.level){
-    phat <- observed/n
-    lower <- phat - qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
-    upper <- phat + qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
-    cat(100*conf.level, "% Confidence interval for pi: (", lower,",", upper,")")
-  }
+  #if (conf.level){
+   # phat <- observed/n
+    #lower <- phat - qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
+    #upper <- phat + qnorm((1-conf.level)/2, lower.tail = F)*sqrt((1/n)*phat*(1-phat))
+    #cat(100*conf.level, "% Confidence interval for pi: (", lower,",", upper,")")
+  #}
+  cat(100*conf.level, "% Confidence interval for pi:", CI)
 }
