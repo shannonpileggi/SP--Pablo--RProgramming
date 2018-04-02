@@ -13,3 +13,5 @@ install("ISCAM")
 library(ISCAM)
 library(ggplot2)
 library(gridExtra)
+
+load("C:/Users/noell/Desktop/ISCAM.RData")

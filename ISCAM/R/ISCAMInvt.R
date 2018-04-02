@@ -24,7 +24,7 @@ ISCAMInvt <- function(prob1, df, direction){
   
   if (direction=="above"){ 
     answer <- signif(upper, 4)
-    mysubtitle <- paste("Pr(T >", answer, ") =", prob1)
+    mysubtitle <- paste("Pr(T > ", answer, ") = ", prob1, sep = "" )
     p <- ggplot(mydf, aes(x = x)) +
     stat_function(fun = dt, 
                   args = list(df = df),
@@ -49,7 +49,7 @@ ISCAMInvt <- function(prob1, df, direction){
   }
   else if (direction == "below"){
     answer <- signif(lower, 4)
-    mysubtitle <- paste("Pr(T <", answer, ") =", prob1)
+    mysubtitle <- paste("Pr(T < ", answer, ") = ", prob1, sep = "")
     p <- ggplot(mydf, aes(x = x)) +
       stat_function(fun = dt, 
                     args = list(df = df),
@@ -73,7 +73,7 @@ ISCAMInvt <- function(prob1, df, direction){
     cat("the observation with", prob1, "probability below is", answer, "\n")
   }
   else if (direction == "between"){
-    mysubtitle <- paste("Pr(", downside, "< T <", upside, ") =", prob1)
+    mysubtitle <- paste("Pr(", downside, "< T < ", upside, ") = ", prob1, sep = "")
     p <- ggplot(mydf, aes(x = x)) +
       stat_function(fun = dt, 
                     args = list(df = df),
@@ -97,8 +97,8 @@ ISCAMInvt <- function(prob1, df, direction){
     cat("There is", prob1, "probability between", downside, "and", upside, "\n")
   }
   else if (direction == "outside"){
-    subtitle1 <- paste("Pr(T >", outupper, ") =", prob1/2)
-    subtitle2 <- paste("Pr(T <", outlower, ") =", prob1/2)
+    subtitle1 <- paste("Pr(T > ", outupper, ") = ", prob1/2, sep = "")
+    subtitle2 <- paste("Pr(T < ", outlower, ") = ", prob1/2, sep = "")
     p <- ggplot(mydf, aes(x = x)) +
       stat_function(fun = dt, 
                     args = list(df = df),
