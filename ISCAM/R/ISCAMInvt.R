@@ -24,7 +24,7 @@ ISCAMInvt <- function(prob1, df, direction){
   
   if (direction=="above"){ 
     answer <- signif(upper, 4)
-    mysubtitle <- paste("Pr(T >", answer, "=", prob1, ")")
+    mysubtitle <- paste("Pr(T >", answer, ") =", prob1)
     p <- ggplot(mydf, aes(x = x)) +
     stat_function(fun = dt, 
                   args = list(df = df),
@@ -43,13 +43,13 @@ ISCAMInvt <- function(prob1, df, direction){
                   geom = "area", 
                   color = "dodgerblue4",
                   fill = "dodgerblue4") +
-      annotate(geom="text", x=3, y=0.09, label=mysubtitle,
+      annotate(geom="text", x=3, y=0.1, label=mysubtitle,
                color="dodgerblue4", fontface =2)
     cat("The observation with", prob1, "probability above is", answer, "\n")
   }
   else if (direction == "below"){
     answer <- signif(lower, 4)
-    mysubtitle <- paste("Pr(T <", answer, "=", prob1, ")")
+    mysubtitle <- paste("Pr(T <", answer, ") =", prob1)
     p <- ggplot(mydf, aes(x = x)) +
       stat_function(fun = dt, 
                     args = list(df = df),
@@ -68,7 +68,7 @@ ISCAMInvt <- function(prob1, df, direction){
                     geom = "area", 
                     color = "dodgerblue4",
                     fill = "dodgerblue4") +
-      annotate(geom="text", x=-3, y=0.09, label=mysubtitle,
+      annotate(geom="text", x=-3, y=0.1, label=mysubtitle,
                color="dodgerblue4", fontface =2)
     cat("the observation with", prob1, "probability below is", answer, "\n")
   }
@@ -97,8 +97,8 @@ ISCAMInvt <- function(prob1, df, direction){
     cat("There is", prob1, "probability between", downside, "and", upside, "\n")
   }
   else if (direction == "outside"){
-    subtitle1 <- paste("Pr(T >", outupper, "=", prob1/2, ")")
-    subtitle2 <- paste("Pr(T <", outlower, "=", prob1/2, ")")
+    subtitle1 <- paste("Pr(T >", outupper, ") =", prob1/2)
+    subtitle2 <- paste("Pr(T <", outlower, ") =", prob1/2)
     p <- ggplot(mydf, aes(x = x)) +
       stat_function(fun = dt, 
                     args = list(df = df),

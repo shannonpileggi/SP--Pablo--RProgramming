@@ -14,9 +14,6 @@
 #' iscambinomnorm(33, 144, 0.40, direction = "two.sided")
 
 iscambinomnorm <- function(k, n, prob, direction){
-  Description = "iscambinomnorm(k, n, prob, direction) \n This function illustrates the normal approximation to the binomial.\n  k is the number of successes of interest, n and prob are the number of trials and success probability \n direction allows you to specify whether you want to find the probability \"above\" or \"below\" k \n or a symmetric \"two.sided\" probability "
-  
-  if(as.character(k)=="?") stop(Description)
   
   thisx = 0:n
   phat=thisx/n

@@ -9,7 +9,7 @@
 #' @keywords binomial
 #' @export
 #' @examples
-#' ISCAMBinomTest(20, 35, alternative = "less", hypothesized=0.5)
+#' ISCAMBinomTest(observed = 20, n = 35, hypothesized = 0.5, alternative = "less")
 #' ISCAMBinomTest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
 
 
@@ -19,8 +19,13 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
   thisx <- 0:n #range of data (number of trials) 
   df <- data.frame(x = thisx, y = dbinom(thisx, n, hypothesized)) #putting data into data frame
   
-  binomtest <- binom.test(observed, n, hypothesized, alternative, conf.level)
-  CI <- binomtest$conf.int
+  if (is.null(conf.level)){
+    binomtest <- binom.test(observed, n, hypothesized, alternative)
+  } else {
+    binomtest <- binom.test(observed, n, hypothesized, alternative, conf.level) 
+    CI <- binomtest$conf.int 
+  }
+  
   pvalue <- binomtest$p.value
   showprob <- format(pvalue, digits = 4)
   
@@ -95,5 +100,7 @@ ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = 
   cat(paste("Alternative hypothesis: pi", altname, hypothesized, sep=" "),"\n")
   cat(paste("p-value:", showprob, sep=" "), "\n")
   
-  cat(100*conf.level, "% Confidence interval for pi:", CI)
+  if (!is.null(conf.level)){
+    cat(100*conf.level, "% Confidence interval for pi:", CI)
+  }
 }

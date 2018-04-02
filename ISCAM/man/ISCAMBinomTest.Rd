@@ -21,7 +21,7 @@ ISCAMBinomTest(observed, n, hypothesized, alternative, conf.level = NULL)
 This function performs an exact binomial test and graphs the binomial distribution and/or binomial confidence interval.
 }
 \examples{
-ISCAMBinomTest(20, 35, alternative = "less", hypothesized=0.5)
+ISCAMBinomTest(observed = 20, n = 35, hypothesized = 0.5, alternative = "less")
 ISCAMBinomTest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
 }
 \keyword{binomial}
