@@ -22,7 +22,7 @@ This function illustrates the normal approximation to the binomial.
 \examples{
 ISCAMBinomNorm(20, 30, 0.5, direction = "above")
 ISCAMBinomNorm(10, 55, 0.10, direction = "below")
-ISCAMBinomNorm(33, 144, 0.40, direction = "two.sided")
+ISCAMBinomNorm(13, 44, 0.40, direction = "two.sided")
 }
 \keyword{binomial}
 \keyword{normal}
