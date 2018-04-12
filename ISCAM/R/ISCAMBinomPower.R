@@ -179,7 +179,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
            subtitle = subtitle) + 
       theme_bw(16, "serif") + 
       theme(plot.subtitle=element_text(color="#007f80")) +
-      scale_colour_manual(values = c("Type I Error" = "red"))
+      scale_colour_manual(values = "red", labels = "Type I Error")
     print(plot1)
   }  
 }
