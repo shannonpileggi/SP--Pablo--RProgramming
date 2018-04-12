@@ -30,7 +30,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
     subtitle <- paste("P(X \u2264 ", rr, ") = ", showprob1, sep = "") #creating subtitle
     df <- data.frame(x = thisx, y = dbinom(thisx, n, prob1))
     df <- transform(df, c = ifelse(x <= rr, "Type I Error", "ok"))
-    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.15, fill = type)) + 
+    plot1 <- ggplot(df, aes(x = x, y = y, width = 0.15, color = type)) + 
       geom_bar(stat = "identity", 
                col = "black", 
                fill = "grey",
