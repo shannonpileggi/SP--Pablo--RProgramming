@@ -1,0 +1,50 @@
+---
+title: "Explaining iscambinompower"
+author: "Shannon Pileggi"
+date: "April 3, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+# Source function
+source('~/Senior Project/SP--Pablo--RProgramming/ISCAM2/R/iscambinompower.R', echo=TRUE)
+```
+
+# Execute function
+
+```{r, fig.height = 8}
+iscambinompower(LOS = 0.05, 
+                n = 20,
+                prob1 = 0.25,
+                alternative = "greater",
+                prob2 = 0.333)
+```
+
+# Explain results
+
+This execution has
+
++ $\alpha = 0.05$
+
++ $n = 20$
+
++ $H_0$: $p = 0.25$ vs $H_a$: $p > 0.25$, where $p = 0.333$
+
+The top graph shows the *rejection region*:  that we would need to observe at least 9 successes in 20 trials in order to provide convincing evidence in favor of $H_a$, that $p$ exceeds 0.25.  If we observe 9 or more successes in 20 trials, our $p$-value for this test is 0.04093.  (This computation **does not** depend on the value of $p = 0.333$.)
+
+The bottom graph shows the *power* of the test.  From the top figure, we already know that we would reject the null hypothesis if we observe at least 9 successes in 20 trials.  Given that that $p = 0.333$, we now know that the probability that we would observe at least 9 successes in 20 trials (i.e., that we would correctly reject the null hypothesis) is 0.1897.  (This computation **does** depend on the value of $p = 0.333$.)
+
+# Demo rejection region calculation
+
+```{r}
+options(scipen=999) # this option prevents scientific notation
+check <- round(data.frame(x = 0:20, 
+                    prob1 = dbinom(0:20, 20, 0.25), 
+                    cum_prob1 = pbinom(0:20, 20, 0.25, lower.tail = F),
+                    prob2 = dbinom(0:20, 20, 0.33), 
+                    cum_prob2 = pbinom(0:20, 20, 0.33, lower.tail = F)), 5)
+check
+```
+
