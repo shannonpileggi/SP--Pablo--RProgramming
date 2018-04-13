@@ -16,6 +16,7 @@
 #' ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
 #' ISCAMBinomPower(.10, 55, 0.10, alternative = "less")
 #' ISCAMBinomPower(.05, 20, 0.5, "two.sided", 0.6)
+#' ISCAMBinomPower(.05, 20, 0.25, alternative = "greater",0.333, explain = T)
 
 
 ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = F){
@@ -23,6 +24,9 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
   maxx <- min(n, max(n*prob1+4*sqrt(prob1*(1-prob1)*n), n*prob2+4*sqrt(prob2*(1-prob2)*n)))
   thisx = 0:n
   maintitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob1))
+
+  
+  
   if (alternative=="less") {
     rr <- qbinom(LOS, n, prob1)-1 #finding rejection region
     this.prob1 <- pbinom(rr, n, prob1) #pvalue
@@ -38,8 +42,8 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
       geom_bar(stat = "identity", #fills in part of histogram
                data = subset(df, x <= rr), 
                colour="black", 
-               fill = ifelse(isTRUE(explain), "red", "#007f80"),
-               alpha = .7)  
+               alpha = .7,
+               aes(fill = ifelse(isTRUE(explain), "red", "#007f80"))) 
     cat(paste("Probability ", rr, " and below = ", showprob1, sep = ""))
   }  else if (alternative=="greater"){
     rr <- qbinom(LOS, n, prob1, FALSE)+1
@@ -55,8 +59,10 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
       geom_bar(stat = "identity", #fills in part of histogram
                data = subset(df, x >= rr), 
                colour="black", 
-               fill = ifelse(isTRUE(explain), "red", "#007f80"),
-               alpha = .7) 
+               #fill = ifelse(isTRUE(explain), "red", "#007f80"),
+               alpha = .7,
+               aes(fill = ifelse(isTRUE(explain), "red", "#007f80"))) +
+      scale_fill_discrete(name="",labels=c("Type I error"))
       #+annotate("text", x = rr+4, y = max(dbinom(thisx, n, prob1))/3, colour="red",
        #        size=5, family="serif", fontface="bold", label = "Type I Error")
     cat(paste("Probability ", rr, " and above = ", showprob1, sep = ""))
