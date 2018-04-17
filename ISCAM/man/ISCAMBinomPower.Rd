@@ -4,7 +4,7 @@
 \alias{ISCAMBinomPower}
 \title{ISCAMBinomPower Function}
 \usage{
-ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL)
+ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL, explain = F)
 }
 \arguments{
 \item{LOS}{level of significance}
@@ -17,6 +17,8 @@ ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL)
 "less" or "greater" or a symmetric "two.sided" probability}
 
 \item{prob2}{NULL or a second probability}
+
+\item{explain}{logical, default = FALSE. Set to TRUE to see type I and II error and power on the graph}
 }
 \description{
 This function determines the rejection region corresponding to the level of 
