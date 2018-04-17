@@ -4,7 +4,7 @@
 \alias{ISCAMBinomPower}
 \title{ISCAMBinomPower Function}
 \usage{
-ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL, explain = F)
+ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL, explain = FALSE)
 }
 \arguments{
 \item{LOS}{level of significance}
@@ -29,6 +29,7 @@ its corresponding region.
 ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
 ISCAMBinomPower(.10, 55, 0.10, alternative = "less")
 ISCAMBinomPower(.05, 20, 0.5, "two.sided", 0.6)
+ISCAMBinomPower(.05, 20, 0.25, alternative = "greater",0.333, explain = T)
 }
 \keyword{binomial}
 \keyword{power}
