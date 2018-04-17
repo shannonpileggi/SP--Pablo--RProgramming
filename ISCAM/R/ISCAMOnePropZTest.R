@@ -10,6 +10,8 @@
 #' @export
 #' @examples
 #' ISCAMOnePropZTest(12, 15, .70, "less")
+#' ISCAMOnePropZTest(12, 15, .6, "greater")
+#' ISCAMOnePropZTest(12, 15, .5, "two.sided", 0.95)
 
 ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.sided", conf.level=NULL){
   if (observed<1) {observed=round(n*observed)}
@@ -29,6 +31,22 @@ ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.s
     pvalue <- signif(proptest$p.value, 4)
     subtitle2 <- paste("p-value:", pvalue)
     cat("p-value:",pvalue, "\n")
+    lower=0; upper=0
+    if (!is.null(conf.level)){
+      #confint <- signif(proptest$conf.int, 4)
+      for (k in 1:length(conf.level)){
+        if(conf.level[k] > 1) conf.level[k]=conf.level[k]/100
+        myout=prop.test(observed, n, p=statistic, alternative="two.sided", conf.level[k], correct=FALSE)
+        criticalvalue=qnorm((1-conf.level[k])/2)
+        lower[k] <- signif(statistic+criticalvalue*sqrt(statistic*(1-statistic)/n), 4)
+        upper[k] <- signif(statistic-criticalvalue*sqrt(statistic*(1-statistic)/n), 4)
+        multconflevel=100*conf.level[k]
+      }
+        cat(multconflevel, "% Confidence interval for pi: (", lower[k], ", ", upper[k], ") \n", sep = "")
+      #conflevel <- 100*conf.level
+      #cat(conflevel, "% Confidence interval for pi: (", confint, ")")
+    }
+    
     SD <- sqrt(hypothesized*(1-hypothesized)/n) #std error
     min <- min(hypothesized-4*SD, hypothesized-abs(zvalue)*SD-.001)
     max <- max(hypothesized +4*SD, hypothesized+abs(zvalue)*SD+.001)
