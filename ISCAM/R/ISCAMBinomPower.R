@@ -1,8 +1,8 @@
 #' ISCAMBinomPower Function
 #'
 #' This function determines the rejection region corresponding to the level of 
-#' significance and the first probability and shows the second distribution shading 
-#' its corresponding region.  
+#' significance and the first probability. 
+#' A second, optional probability can be specified to determine the power of the test. 
 #' @param LOS level of significance
 #' @param n number of trials (zero or more)
 #' @param prob1 probability of success on each trial

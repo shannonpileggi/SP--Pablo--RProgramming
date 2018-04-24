@@ -22,8 +22,8 @@ ISCAMBinomPower(LOS, n, prob1, alternative, prob2 = NULL, explain = FALSE)
 }
 \description{
 This function determines the rejection region corresponding to the level of 
-significance and the first probability and shows the second distribution shading 
-its corresponding region.
+significance and the first probability. 
+A second, optional probability can be specified to determine the power of the test.
 }
 \examples{
 ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
