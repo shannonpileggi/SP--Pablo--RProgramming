@@ -7,7 +7,9 @@ setwd("C:/Users/noell/Documents/SP--Pablo--RProgramming")
 #create("ISCAM")
 setwd("./ISCAM")
 document()
+build()
 setwd("..")
+
 install("ISCAM")
 #making package for all existing functions
 library(ISCAM)

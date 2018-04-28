@@ -13,6 +13,7 @@
 #' @export
 #' @examples
 #' ISCAMTwoPropZTest(6, 17, 12, 20, alternative = "less")
+#' ISCAMTwoPropZTest(10, 20, 17, 22, conf.level = .95)
 
 ISCAMTwoPropZTest <- function(observed1, n1, observed2, n2, hypothesized = 0, alternative = NULL, conf.level = NULL, datatable = NULL){
   if(!is.null(datatable)) {
