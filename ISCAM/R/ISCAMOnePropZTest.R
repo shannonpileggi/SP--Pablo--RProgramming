@@ -12,6 +12,7 @@
 #' ISCAMOnePropZTest(12, 15, .70, "less")
 #' ISCAMOnePropZTest(12, 15, .6, "greater")
 #' ISCAMOnePropZTest(12, 15, .5, "two.sided", 0.95)
+#' ISCAMOnePropZTest(12, 15, conf.level = c(.9, .95))
 
 ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.sided", conf.level=NULL){
   if (observed<1) {observed=round(n*observed)}
@@ -21,8 +22,6 @@ ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.s
   statistic <- signif(observed/n, 4)
   cat(paste("Data: observed successes = ", observed, ", sample size = ", n, ", sample proportion = ", statistic, "\n\n", sep=""))
   zvalue <- NULL; pvalue <- NULL; 
-  
-  
   
   if (!is.null(hypothesized)){
     zvalue <- (statistic-hypothesized)/sqrt(hypothesized*(1-hypothesized)/n)
@@ -132,7 +131,7 @@ if (!is.null(conf.level)){
     
     if(length(conf.level)==1){
       data <- data.frame(x = CIseq, y = dnorm(CIseq, lower[1], SDphat), lower = lower, upper = upper, ylim=1)
-      nicelower <- signif(lower, 4); niceupper <- signif(upper, 4)
+      nicelower <- round(lower, 4); niceupper <- round(upper, 4)
       title2.1 <- substitute(paste("Normal (", mean==x1,", ", SD==x2, ")", ), list(x1=signif(lower[1],4), x2=signif(SDphat,4)))
       plot2.1 <- ggplot(data, aes(x = x, y = y)) + 
         stat_function(fun = dnorm,  #drawing normal density curve
@@ -146,6 +145,9 @@ if (!is.null(conf.level)){
                       fill = "dodgerblue4") +
         labs(x = "Sample Proportions",
              title = title2.1) +
+        theme(axis.title.y=element_blank(), #removing y axis
+              axis.text.y=element_blank(),
+              axis.ticks.y=element_blank()) +
         geom_segment(aes(x=min, xend=max, y=0, yend=0), color = "dodgerblue")
       title2.2 <- substitute(paste("Normal (", mean==x1,", ", SD==x2, ")", ), list(x1=signif(upper[1],4), x2=signif(SDphat, 4)))
       plot2.2 <- ggplot(data, aes(x = x, y = y)) + 
@@ -160,6 +162,9 @@ if (!is.null(conf.level)){
                       fill = "dodgerblue4") +
         labs(x = "Sample Proportions",
              title = title2.2) +
+        theme(axis.title.y=element_blank(), #removing y axis
+              axis.text.y=element_blank(),
+              axis.ticks.y=element_blank()) +
         geom_segment(aes(x=min, xend=max, y=0, yend=0), color = "dodgerblue")
       
       midpoint <- signif((upper[1] - lower[1])/2 + lower[1], 4)
@@ -174,29 +179,40 @@ if (!is.null(conf.level)){
         geom_text(x = midpoint, y = 1.2, label = midpoint) +
         geom_text(x = lower + 0.01, y = 1.2, label = nicelower) +
         geom_text(x = upper - 0.01, y = 1.2, label = niceupper) +
-        labs(x = "Process Probability")
+        labs(x = "Process Probability") +
+        theme(axis.title.y=element_blank(), #removing y axis
+              axis.text.y=element_blank(),
+              axis.ticks.y=element_blank())
       grid.arrange(plot2.1, plot2.2, plot2_3, nrow = 3)
     } else if (length(conf.level) > 1){
     #When more than one confidence interval is specified
-    plots <- list()
+      plots <- list() #creating a list to hold the ggplots
+      titles <- list() #creating a list to hold the plot titles
+      multconflevel <- list() #creating a list to hold the different conf levels
     for (k in 1:length(conf.level)){
-      data <- data.frame(x = CIseq, y = dnorm(CIseq, lower[k], SDphat)) 
-      midpoint <- signif((upper[k] - lower[k])/2 + lower[k], 4)
+      multconflevel[[k]] <- 100*conf.level[k] #making conf levels whole numbers
+      midpoint <- signif((upper[k] - lower[k])/2 + lower[k], 4) #finding midpoint of interval
+      titles[[k]] <- paste(multconflevel[k], "% Confidence Interval", sep = "") #title of each plot
       plots[[k]] <- ggplot(data, aes(x = x, y = y)) + 
-        geom_segment(aes_string(x = upper[k], y = 1, xend = lower[1], yend = 1), data = data) +
+        geom_segment(aes(x = upper[k], y = 1, xend = lower[k], yend = 1), data = data) + #line segment representing conf interval
         geom_point(data = data, 
-                   mapping = aes_string(x = upper[k], y = ylim)) +
+                   mapping = aes(x = upper[k], y = 1)) + #upper end point
         geom_point(data = data, 
-                   mapping = aes_string(x = lower[k], y = ylim)) +
+                   mapping = aes(x = lower[k], y = 1)) + #lower end point
         geom_point(data = data, 
-                   mapping = aes_string(x = midpoint, y = ylim)) +
-        geom_text(x = midpoint, y = 1.2, label = midpoint) +
-        geom_text(x = lower + 0.01, y = 1.2, label = round(lower, 4)) +
-        geom_text(x = upper - 0.01, y = 1.2, label = round(upper, 4)) +
-        labs(x = "Process Probability")
-      rows <- length(conf.level)
-      #grid.arrange(plots, list(nrow = rows))
+                   mapping = aes(x = midpoint, y = 1)) + #midpoint
+        geom_text(x = midpoint, y = 1.2, label = midpoint) + #midpoint label
+        geom_text(x = lower[k] + 0.01, y = 1.2, label = round(lower[k], 4)) + #lower point label
+        geom_text(x = upper[k] - 0.01, y = 1.2, label = round(upper[k], 4)) + #upper point label
+        labs(x = "Population Mean",
+             title = titles[k]) +
+        #scale_x_continuous(limits = c(lower[k], upper[k])) +
+        coord_cartesian(xlim=c(lower[k] - 0.01, upper[k] + 0.01)) + #setting x lims
+        theme(axis.title.y=element_blank(), #removing y axis
+              axis.text.y=element_blank(),
+              axis.ticks.y=element_blank())
     }
+      do.call(grid.arrange, plots) #displaying graphs on one plot
     }
   }
 }

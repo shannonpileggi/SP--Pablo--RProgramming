@@ -71,6 +71,7 @@ ISCAMOneSamplet <- function(xbar, sd, n, hypothesized = 0, alternative = NULL, c
             axis.text.y=element_blank(),
             axis.ticks.y=element_blank()) +
       scale_x_continuous(breaks = xticks, labels = l, lim = c(diffmin, diffmax))
+    print(finalplot)
     cat("p-value: ", pvalue)
   } 
   
@@ -86,6 +87,92 @@ ISCAMOneSamplet <- function(xbar, sd, n, hypothesized = 0, alternative = NULL, c
       multconflevel=100*conf.level[k]
       cat(multconflevel, "% Confidence interval for mu: (", lower[k], ", ", upper[k], ") \n")
     }
+    if (is.null(alternative)){ #NO ALTERNATIVE --> THREE PLOTS ABOUT CONF.LEVEL
+      min <- statistic - 4*se
+      max <- statistic + 4*se
+      CIseq <- seq(min, max, .001)
+      if(length(conf.level) == 1){ #ONE CONFIDENCE INTERVAL
+        data <- data.frame(x = CIseq, y = dnorm(CIseq, lower[1], se))
+        nicelower <- signif(lower, 4); niceupper <- signif(upper, 4)
+        title2.1 <- substitute(paste("population mean",s==x1), list(x1=signif(lower[1],4)))
+        plot2.1 <- ggplot(data, aes(x = x, y = y)) + 
+          stat_function(fun = dnorm,  #drawing normal density curve
+                        args = list(mean = lower[1], sd = se),
+                        color = "dodgerblue") +
+          stat_function(fun = dnorm,  #shading in normal curve
+                        args = list(mean = lower[1], sd = se),
+                        xlim = c(statistic, max),
+                        geom = "area", 
+                        color = "dodgerblue4",
+                        fill = "dodgerblue4") +
+          labs(x = "Sample Means",
+               title = title2.1) +
+          theme(axis.title.y=element_blank(),
+                axis.text.y=element_blank(),
+                axis.ticks.y=element_blank()) +
+          geom_segment(aes(x=min, xend=max, y=0, yend=0), color = "dodgerblue")
+        title2.2 <- substitute(paste("population mean",s==x1), list(x1=signif(upper[1],4)))
+        plot2.2 <- ggplot(data, aes(x = x, y = y)) + 
+          stat_function(fun = dnorm,  #drawing normal density curve
+                        args = list(mean = upper[1], sd = se),
+                        color = "dodgerblue") +
+          stat_function(fun = dnorm,  #shading in normal curve
+                        args = list(mean = upper[1], sd = se),
+                        xlim = c(min, statistic),
+                        geom = "area", 
+                        color = "dodgerblue4",
+                        fill = "dodgerblue4") +
+          labs(x = "Sample Means",
+               title = title2.2) +
+          theme(axis.title.y=element_blank(),
+                axis.text.y=element_blank(),
+                axis.ticks.y=element_blank()) +
+          geom_segment(aes(x=min, xend=max, y=0, yend=0), color = "dodgerblue")
+        
+        midpoint <- signif((upper[1] - lower[1])/2 + lower[1], 4)
+        plot2_3 <- ggplot(data, aes(x = x, y = y)) + 
+          geom_segment(aes(x = upper[1], y = 1, xend = lower[1], yend = 1), data = data) +
+          geom_point(data = data, 
+                     mapping = aes(x = upper[1], y = 1)) +
+          geom_point(data = data, 
+                     mapping = aes(x = lower[1], y = 1)) +
+          geom_point(data = data, 
+                     mapping = aes(x = midpoint, y = 1)) +
+          geom_text(x = midpoint, y = 1.2, label = midpoint) +
+          geom_text(x = lower[1] - 0.01, y = 1.2, label = nicelower) +
+          geom_text(x = upper[1] + 0.01, y = 1.2, label = niceupper) +
+          labs(x = "Population Mean") +
+          theme(axis.title.y=element_blank(),
+                axis.text.y=element_blank(),
+                axis.ticks.y=element_blank())
+        grid.arrange(plot2.1, plot2.2, plot2_3, nrow = 3)
+      }
+      plots <- list() #creating a list to hold the ggplots
+      titles <- list() #creating a list to hold the plot titles
+      multconflevel <- list() #creating a list to hold the different conf levels
+      for (k in 1:length(conf.level)){
+        multconflevel[[k]] <- 100*conf.level[k] #making conf levels whole numbers
+        midpoint <- signif((upper[k] - lower[k])/2 + lower[k], 4) #finding midpoint of interval
+        titles[[k]] <- paste(multconflevel[k], "% Confidence Interval", sep = "") #title of each plot
+        plots[[k]] <- ggplot(data, aes(x = x, y = y)) + 
+          geom_segment(aes(x = upper[k], y = 1, xend = lower[k], yend = 1), data = data) + #line segment representing conf interval
+          geom_point(data = data, 
+                     mapping = aes(x = upper[k], y = 1)) + #upper end point
+          geom_point(data = data, 
+                     mapping = aes(x = lower[k], y = 1)) + #lower end point
+          geom_point(data = data, 
+                     mapping = aes(x = midpoint, y = 1)) + #midpoint
+          geom_text(x = midpoint, y = 1.2, label = midpoint) + #midpoint label
+          geom_text(x = lower[k] - 0.01, y = 1.2, label = round(lower[k], 4)) + #lower point label
+          geom_text(x = upper[k] + 0.01, y = 1.2, label = round(upper[k], 4)) + #upper point label
+          labs(x = "Population Mean",
+               title = titles[k]) +
+          coord_cartesian(xlim=c(lower[k] - 0.01, upper[k] + 0.01)) + #setting x lims
+          theme(axis.title.y=element_blank(), #removing y axis
+                axis.text.y=element_blank(),
+                axis.ticks.y=element_blank())
+      }
+      do.call(grid.arrange, plots) #displaying graphs on one plot
+    }
   }
-  print(finalplot)
 }
