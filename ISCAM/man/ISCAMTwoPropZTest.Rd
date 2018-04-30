@@ -30,6 +30,7 @@ This function calculates a two proportion z-test and/or interval.
 \examples{
 ISCAMTwoPropZTest(6, 17, 12, 20, alternative = "less")
 ISCAMTwoPropZTest(10, 20, 17, 22, conf.level = .95)
+ISCAMTwoPropZTest(10, 20, 17, 22, conf.level = c(.90, .95))
 }
 \keyword{proportion}
 \keyword{test}

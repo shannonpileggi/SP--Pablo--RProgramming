@@ -25,6 +25,7 @@ This function calculates a one proportion z-test and/or interval.
 ISCAMOnePropZTest(12, 15, .70, "less")
 ISCAMOnePropZTest(12, 15, .6, "greater")
 ISCAMOnePropZTest(12, 15, .5, "two.sided", 0.95)
+ISCAMOnePropZTest(12, 15, conf.level = c(.9, .95))
 }
 \keyword{one}
 \keyword{proportion}
