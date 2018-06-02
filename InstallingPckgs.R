@@ -15,5 +15,10 @@ install("ISCAM")
 library(ISCAM)
 library(ggplot2)
 library(gridExtra)
+library(skimr)
 #library(scales)
 load("C:/Users/noell/Desktop/ISCAM.RData")
+
+# Creating Vignette
+library(knitr)
+devtools::use_vignette("my-vignette")

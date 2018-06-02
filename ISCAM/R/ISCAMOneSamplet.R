@@ -11,6 +11,7 @@
 #' @export
 #' @examples
 #' ISCAMOneSamplet(70, 4, 25, hypothesized = 68, alternative = "greater")
+#' ISCAMOneSamplet(70, 4, 25, hypothesized = 68, conf.level = c(.90, .95))
 
 ISCAMOneSamplet <- function(xbar, sd, n, hypothesized = 0, alternative = NULL, conf.level = NULL){
   cat("\n", "One Sample t test\n", sep = "", "\n") #output

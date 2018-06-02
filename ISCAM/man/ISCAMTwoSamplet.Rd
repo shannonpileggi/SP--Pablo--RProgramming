@@ -4,11 +4,19 @@
 \alias{ISCAMTwoSamplet}
 \title{ISCAMTwoSamplet Function}
 \usage{
-ISCAMTwoSamplet(observed1, n1, observed2, n2, hypothesized = 0,
-  alternative = NULL, conf.level = NULL, datatable = NULL)
+ISCAMTwoSamplet(x1, sd1, n1, x2, sd2, n2, hypothesized = 0,
+  alternative = NULL, conf.level = 0)
 }
 \arguments{
+\item{x1}{observed mean}
+
+\item{sd1}{observed standard deviation}
+
 \item{n1}{sample size}
+
+\item{x2}{observed mean}
+
+\item{sd2}{observed standard deviation}
 
 \item{n2}{sample size}
 
@@ -17,20 +25,12 @@ ISCAMTwoSamplet(observed1, n1, observed2, n2, hypothesized = 0,
 \item{alternative}{form of alternative ("less", "greater", or "two.sided")}
 
 \item{conf.level}{a confidence level for a two-sided confidence interval}
-
-\item{x1}{observed mean}
-
-\item{sd1}{observed standard deviation}
-
-\item{x2}{observed mean}
-
-\item{sd2}{observed standard deviation}
 }
 \description{
 This function calculates a two sample t-test and/or interval from summary data.
 }
 \examples{
-ISCAMTwoSamplet(6, 1.7, 40, 8, 2, 60, alternative = "less")
+ISCAMTwoSamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
 }
 \keyword{sample}
 \keyword{t}

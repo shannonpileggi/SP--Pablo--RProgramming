@@ -18,10 +18,23 @@ ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.s
   if (observed < 1) {observed <- round(n*observed)} #converting sample proportion to number of successes
   proptest <- prop.test(observed, n, hypothesized, alternative, correct = FALSE) #R's built in one prop z test
   
-  cat("\n", "One Proportion z test\n", sep="","\n") #output
-  statistic <- signif(observed/n, 4) #proportion of successes
-  cat(paste("Data: observed successes = ", observed, ", sample size = ", n, ", sample proportion = ", statistic, "\n\n", sep=""))
-  zvalue <- NULL; pvalue <- NULL; 
+  cat("\n", "One Proportion z test\n", sep = "", "\n") #output
+  statistic <- signif(observed / n, 4) #proportion of successes
+  cat(
+    paste(
+      "Data: observed successes = ",
+      observed,
+      ", sample size = ",
+      n,
+      ", sample proportion = ",
+      statistic,
+      "\n\n",
+      sep = ""
+    )
+  )
+  zvalue <- NULL
+  pvalue <- NULL
+  
   
   if (!is.null(hypothesized)){
     zvalue <- (statistic-hypothesized)/sqrt(hypothesized*(1-hypothesized)/n)
@@ -108,7 +121,8 @@ ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.s
     print(finalplot)
   }
   
-lower=0; upper=0
+  lower = 0
+  upper = 0
 if (!is.null(conf.level)){
   for (k in 1:length(conf.level)){
     if(conf.level[k] > 1) conf.level[k]=conf.level[k]/100
@@ -191,14 +205,15 @@ if (!is.null(conf.level)){
       titles <- list() #creating a list to hold the plot titles
       multconflevel <- list() #creating a list to hold the different conf levels
       differences <- list()
+      #lowlim <- NULL; uplim <- NULL
       for (k in 1:length(conf.level)){
         if (max(conf.level) == conf.level[k]){ #finding widest CI to set xlims
           uplim <- upper[k]
           lowlim <- lower[k]
         }
         
-        dfseg <- data.frame(V1=lower[k], V2=1, xend=upper[k], yend=1)
-        
+        #dfseg <- data.frame(V1=lower[k], V2=1, xend=upper[k], yend=1)
+        dfseg <- data.frame(V1=lowlim, V2=1, xend=uplim, yend=1)
         
         xticks <- round(seq(lowlim, uplim, by = (uplim-lowlim)/5), 1)
         multconflevel[[k]] <- 100*conf.level[k] #making conf levels whole numbers
@@ -206,8 +221,10 @@ if (!is.null(conf.level)){
         titles[[k]] <- paste(multconflevel[k], "% Confidence Interval", sep = "") #title of each plot
         plots[[k]] <- ggplot(dfseg, aes(V1,V2)) +
           #ggplot(data, aes(x = x, y = y)) + 
-          geom_segment(aes(x = upper[k], y = 1, xend = lower[k], yend = 1), data = data) + #line segment representing conf interval
+          geom_segment(aes(x = upper[k], y = 1, xend = lower[k], yend = 1), data = dfseg) + #line segment representing conf interval
+          #geom_segment(x = upper[k], y = 1, xend = lower[k], yend = 1) +
           annotate("point", x = upper[k], y = 1) + #upper endpoint
+          
           annotate("point", x = lower[k], y = 1) + #lower endpoint
           annotate("point", x = midpoint, y = 1) + #midpoint
           #geom_segment(x = upper[k], y = 1, xend = midpoint, yend = 1) +
@@ -216,7 +233,7 @@ if (!is.null(conf.level)){
           geom_text(x = upper[k] + 0.01, y = 1.2, label = round(upper[k], 4)) + #upper point label
           labs(x = "Population Mean",
                title = titles[k]) +
-          #scale_x_continuous(breaks = round(seq(lowlim, uplim, by = (uplim-lowlim)/5), 1)) +
+          #scale_x_continuous(breaks = xticks) +
           #lims(x = c(lowlim, uplim)) +
           #scale_x_continuous(limits=c(lowlim, uplim)) +
           #coord_cartesian(xlim=c(lowlim, uplim)) + #setting x lims

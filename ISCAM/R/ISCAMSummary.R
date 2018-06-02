@@ -17,7 +17,7 @@ ISCAMSummary <- function(x, explanatory=NULL, digits = 3){
   if(is.null(explanatory)){
     skim(x)
   } else if (!is.null(explanatory)){
-    data <- data.frame(x = x, explanatory = explanatory)
+    data <- data.frame(x = x, explanatory = explanatory) #deparse substitute to get variable name
     data %>%
       dplyr::group_by(explanatory) %>%
       skim()

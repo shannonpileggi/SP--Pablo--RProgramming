@@ -48,7 +48,6 @@ ISCAMBinomNorm <- function(k, n, prob, direction){
                col = "black", 
                fill = "dimgrey",
                alpha = .2) + 
-      
       stat_function(fun = dnorm, #shade in under normal curve
                     args = list(mean = normmean, sd = normsd),
                     xlim = c(minx, k),
@@ -93,15 +92,6 @@ ISCAMBinomNorm <- function(k, n, prob, direction){
     mySubtitle <- paste("Binomial: ", showprob, "\n", subtitle2, subtitle3, sep = "") #creating subtitle
     
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) + 
-      geom_bar(stat = "identity", 
-               col = "black", 
-               fill = "dimgrey",
-               alpha = .2) + 
-      geom_bar(stat = "identity", 
-               data = subset(df, x >= k), 
-               colour="black", 
-               fill="#3366FF",
-               alpha = .7) +
       stat_function(fun = dnorm, #shade in under normal curve
                     args = list(mean = normmean, sd = normsd),
                     xlim = c(k, maxx),
@@ -115,7 +105,16 @@ ISCAMBinomNorm <- function(k, n, prob, direction){
                     geom = "area", 
                     color = "orange",
                     fill = "orange",
-                    alpha = 0.4) +
+                    alpha = 0.4) + 
+      geom_bar(stat = "identity", 
+               col = "black", 
+               fill = "dimgrey",
+               alpha = .2) + 
+      geom_bar(stat = "identity", 
+               data = subset(df, x >= k), 
+               colour="black", 
+               fill="#3366FF",
+               alpha = .7) +
       labs(x = "Number of Successes",
            y = "Probability", 
            title = myTitle,
@@ -158,15 +157,6 @@ ISCAMBinomNorm <- function(k, n, prob, direction){
     
     mySubtitle <- paste("Binomial: ", showprob, "\n", subtitle2, subtitle3, sep = "") #creating subtitle
     plot1 <- ggplot(df, aes(x = x, y = y, width = 0.25)) +
-      geom_bar(stat = "identity",
-               col = "black",
-               fill = "dimgrey",
-               alpha = .2) +
-      geom_bar(stat = "identity",
-               data = subset(df, x <= k1 | x >= k2),
-               colour="black",
-               fill="#007f80",
-               alpha = .7) +
       stat_function(fun = dnorm, #shade in under normal curve
                     args = list(mean = normmean, sd = normsd),
                     xlim = c(minx, k1),
@@ -195,6 +185,15 @@ ISCAMBinomNorm <- function(k, n, prob, direction){
                     color = "orange",
                     fill = "orange",
                     alpha = 0.4) +
+      geom_bar(stat = "identity",
+               col = "black",
+               fill = "dimgrey",
+               alpha = .2) +
+      geom_bar(stat = "identity",
+               data = subset(df, x <= k1 | x >= k2),
+               colour="black",
+               fill="#007f80",
+               alpha = .7) +
       labs(x = "X = Number of Successes (Proportion)",
            y = "Probability",
            title = myTitle,
