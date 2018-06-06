@@ -1,4 +1,4 @@
-#' ISCAMBinomTest Function
+#' iscam_binomtest Function
 #'
 #' This function performs an exact binomial test and graphs the binomial distribution and/or binomial confidence interval.
 #' @param observed number of successes of interest or sample proportion (assumed if value less than one)
@@ -9,11 +9,11 @@
 #' @keywords binomial
 #' @export
 #' @examples
-#' ISCAMBinomTest(observed = 20, n = 35, hypothesized = 0.5, alternative = "less")
-#' ISCAMBinomTest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
+#' iscam_binomtest(observed = 20, n = 35, hypothesized = 0.5, alternative = "less")
+#' iscam_binomtest(10, 40, hypothesized = .50, alternative = "two.sided", conf.level = 0.90)
 
 
-ISCAMBinomTest <- function(observed, n, hypothesized, alternative, conf.level = NULL){
+iscam_binomtest <- function(observed, n, hypothesized, alternative, conf.level = NULL){
   if (observed < 1) {observed <- round(n*observed)}
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=hypothesized)) #graph's main title
   thisx <- 0:n #range of data (number of trials) 

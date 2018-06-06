@@ -1,4 +1,4 @@
-#' ISCAMOnePropZTest Function
+#' iscam_onepropztest Function
 #'
 #' This function calculates a one proportion z-test and/or interval.
 #' @param observed number of success or sample proportion (assumed if value is less than 1)
@@ -9,12 +9,12 @@
 #' @keywords one proportion z test
 #' @export
 #' @examples
-#' ISCAMOnePropZTest(12, 15, .70, "less")
-#' ISCAMOnePropZTest(12, 15, .6, "greater")
-#' ISCAMOnePropZTest(12, 15, .5, "two.sided", 0.95)
-#' ISCAMOnePropZTest(12, 15, conf.level = c(.9, .95))
+#' iscam_onepropztest(12, 15, .70, "less")
+#' iscam_onepropztest(12, 15, .6, "greater")
+#' iscam_onepropztest(12, 15, .5, "two.sided", 0.95)
+#' iscam_onepropztest(12, 15, conf.level = c(.9, .95))
 
-ISCAMOnePropZTest <- function(observed, n, hypothesized=NULL, alternative="two.sided", conf.level=NULL){
+iscam_onepropztest <- function(observed, n, hypothesized=NULL, alternative="two.sided", conf.level=NULL){
   if (observed < 1) {observed <- round(n*observed)} #converting sample proportion to number of successes
   proptest <- prop.test(observed, n, hypothesized, alternative, correct = FALSE) #R's built in one prop z test
   

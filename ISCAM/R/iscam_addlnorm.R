@@ -1,4 +1,4 @@
-#' ISCAMAddLNorm Function
+#' iscam_addlnorm Function
 #'
 #' This function creates a histogram of the inputted variable and overlays 
 #' a log normal density function.
@@ -6,9 +6,9 @@
 #' @keywords lognormal
 #' @export
 #' @examples
-#' ISCAMAddLNorm(x)
+#' iscam_addlnorm(x)
 
-ISCAMAddLNorm <- function(x){
+iscam_addlnorm <- function(x){
   df <- data.frame(x)
   ggplot(df, aes(x)) +
   geom_histogram(aes(y = (..density..)), 

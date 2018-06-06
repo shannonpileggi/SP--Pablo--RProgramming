@@ -1,4 +1,4 @@
-#' ISCAMNormProb Function
+#' iscam_normprob Function
 #'
 #' This function calculates tail probability for the normal distribution. 
 #' @param xval x value
@@ -11,10 +11,10 @@
 #' @keywords normal tail probability
 #' @export
 #' @examples
-#' ISCAMNormProb(2.2, direction = "above", label = "sample proportions")
-#' ISCAMNormProb(2, 5, 1.5, direction = "outside", label = "sample proportions", xval2 = 3)
+#' iscam_normprob(2.2, direction = "above", label = "sample proportions")
+#' iscam_normprob(2, 5, 1.5, direction = "outside", label = "sample proportions", xval2 = 3)
 
-ISCAMNormProb <- function(xval, mean = 0, sd = 1, direction, label = NULL, xval2=NULL, digits = 4){
+iscam_normprob <- function(xval, mean = 0, sd = 1, direction, label = NULL, xval2=NULL, digits = 4){
   if(is.null(xval2)) xval2 <- abs(xval)
   if(xval2 < xval) {temp <- xval; xval <- xval2; xval2 <- temp}
   xvallabel <- format(xval, digits = digits)

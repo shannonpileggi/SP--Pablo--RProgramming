@@ -1,4 +1,4 @@
-#' ISCAMTwoPropZTest Function
+#' iscam_twopropztest Function
 #'
 #' This function calculates a two proportion z-test and/or interval. 
 #' @param observed1 observed number of successes or sample proportions (assumed if value is less than one)
@@ -12,11 +12,11 @@
 #' @keywords two proportion z test
 #' @export
 #' @examples
-#' ISCAMTwoPropZTest(6, 17, 12, 20, alternative = "less")
-#' ISCAMTwoPropZTest(10, 20, 17, 22, conf.level = .95)
-#' ISCAMTwoPropZTest(10, 20, 17, 22, conf.level = c(.90, .95))
+#' iscam_twopropztest(6, 17, 12, 20, alternative = "less")
+#' iscam_twopropztest(10, 20, 17, 22, conf.level = .95)
+#' iscam_twopropztest(10, 20, 17, 22, conf.level = c(.90, .95))
 
-ISCAMTwoPropZTest <- function(observed1, n1, observed2, n2, hypothesized = 0, alternative = NULL, conf.level = NULL, datatable = NULL){
+iscam_twopropztest <- function(observed1, n1, observed2, n2, hypothesized = 0, alternative = NULL, conf.level = NULL, datatable = NULL){
   if(!is.null(datatable)) {
     observed1=datatable[1]
     n1=datatable[1]+datatable[2]

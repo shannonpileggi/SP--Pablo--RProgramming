@@ -1,4 +1,4 @@
-#' ISCAMInvBinom Function
+#' iscam_invbinom Function
 #'
 #' This function calculates the binomial quantile of a specified probability. The integer that achieves at most the stated probability will be returned.
 #' @param alpha alpha level
@@ -8,9 +8,9 @@
 #' @keywords inverse binomial
 #' @export
 #' @examples
-#' ISCAMInvBinom(.05, 15, .20, lower.tail = FALSE)
+#' iscam_invbinom(.05, 15, .20, lower.tail = FALSE)
 
-ISCAMInvBinom <- function(alpha, n, prob, lower.tail){
+iscam_invbinom <- function(alpha, n, prob, lower.tail){
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob)) #graph's main title
   
   thisx <- 0:n #range of data (number of trials) 

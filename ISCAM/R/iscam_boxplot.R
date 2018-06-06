@@ -1,4 +1,4 @@
-#' ISCAMBoxplot Function
+#' iscam_boxplot Function
 #'
 #' This function displays horizontal boxplot(s). 
 #' Optional: A second, categorical variable can also be specified and values will be calculated separately for each group. 
@@ -8,12 +8,12 @@
 #' @keywords boxplot
 #' @export
 #' @examples
-#' ISCAMBoxplot(chickwts$weight)
-#' ISCAMBoxplot(chickwts$weight, names = "weight")
-#' ISCAMBoxplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
+#' iscam_boxplot(chickwts$weight)
+#' iscam_boxplot(chickwts$weight, names = "weight")
+#' iscam_boxplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
 
 
-ISCAMBoxplot <- function(x, explanatory = NULL, names = NULL){
+iscam_boxplot <- function(x, explanatory = NULL, names = NULL){
   df <- data.frame(x)
   if(is.null(explanatory)){
     ggplot(df, aes(x = "", y = x)) + 

@@ -1,4 +1,4 @@
-#' ISCAMtProb Function
+#' iscam_tprob Function
 #'
 #' This function calculates tail probability for the t distribution.
 #' @param xval x value
@@ -8,9 +8,9 @@
 #' @keywords t probability
 #' @export
 #' @examples
-#' ISCAMtProb(4, 5, "above")
+#' iscam_tprob(4, 5, "above")
 
-ISCAMtProb <- function(xval, df, direction, xval2=NULL){
+iscam_tprob <- function(xval, df, direction, xval2=NULL){
   minx <- min(-5, -1*abs(xval)-.5)
   maxx <- max(5, abs(xval)+.5)
   thisx <- seq(minx, maxx, .001)

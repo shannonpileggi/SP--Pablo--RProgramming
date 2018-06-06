@@ -1,4 +1,4 @@
-#' ISCAMDotplot Function
+#' iscam_dotplot Function
 #'
 #' This function displays horizontal dotplot(s). 
 #' Optional: A second, categorical variable can also be specified and values will be calculated separately for each group. 
@@ -8,11 +8,11 @@
 #' @keywords dotplot
 #' @export
 #' @examples
-#' ISCAMDotplot(chickwts$weight)
-#' ISCAMDotplot(chickwts$weight, names = "weight")
-#' ISCAMDotplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
+#' iscam_dotplot(chickwts$weight)
+#' iscam_dotplot(chickwts$weight, names = "weight")
+#' iscam_dotplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
 
-ISCAMDotplot <- function(response, explanatory = NULL, names = NULL){
+iscam_dotplot <- function(response, explanatory = NULL, names = NULL){
   df <- data.frame(response)
   min <- min(response)
   max <- max(response)

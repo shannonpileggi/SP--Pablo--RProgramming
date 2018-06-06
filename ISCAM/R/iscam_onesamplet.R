@@ -1,4 +1,4 @@
-#' ISCAMOneSamplet Function
+#' iscam_onesamplet Function
 #'
 #' This function calculates a one sample t-test and/or interval from summary statistics.
 #' @param xbar observed mean
@@ -10,10 +10,10 @@
 #' @keywords one sample t test
 #' @export
 #' @examples
-#' ISCAMOneSamplet(70, 4, 25, hypothesized = 68, alternative = "greater")
-#' ISCAMOneSamplet(70, 4, 25, hypothesized = 68, conf.level = c(.90, .95))
+#' iscam_onesamplet(70, 4, 25, hypothesized = 68, alternative = "greater")
+#' iscam_onesamplet(70, 4, 25, hypothesized = 68, conf.level = c(.90, .95))
 
-ISCAMOneSamplet <- function(xbar, sd, n, hypothesized = 0, alternative = NULL, conf.level = NULL){
+iscam_onesamplet <- function(xbar, sd, n, hypothesized = 0, alternative = NULL, conf.level = NULL){
   cat("\n", "One Sample t test\n", sep = "", "\n") #output
   statistic <- xbar
   df <- n - 1

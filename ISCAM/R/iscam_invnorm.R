@@ -1,4 +1,4 @@
-#' ISCAMInvNorm Function
+#' iscam_invnorm Function
 #'
 #' This function calculates the normal quantile of a specified probability. 
 #' @param prob1 desired probability
@@ -8,12 +8,12 @@
 #' @keywords inverse normal probability
 #' @export
 #' @examples
-#' ISCAMInvNorm(prob1 = 0.25, direction = "above")
-#' ISCAMInvNorm(.55, 15, 2, direction = "below")
-#' ISCAMInvNorm(.40, direction = "outside")
-#' ISCAMInvNorm(0.5, direction = "between")
+#' iscam_invnorm(prob1 = 0.25, direction = "above")
+#' iscam_invnorm(.55, 15, 2, direction = "below")
+#' iscam_invnorm(.40, direction = "outside")
+#' iscam_invnorm(0.5, direction = "between")
 
-ISCAMInvNorm <- function(prob1, mean = 0, sd = 1, direction){
+iscam_invnorm <- function(prob1, mean = 0, sd = 1, direction){
   min = mean - 4 * sd
   max = mean + 4 * sd
   mydf <- data.frame(x = c(min, max))

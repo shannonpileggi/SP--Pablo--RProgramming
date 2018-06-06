@@ -1,4 +1,4 @@
-#' ISCAMHyperNorm Function
+#' iscam_hypernorm Function
 #'
 #' This function calculates tail probabilities from the hypergeometric distribution.
 #' @param k number of successes of interest (integer) or difference in conditional proportions
@@ -9,9 +9,9 @@
 #' @keywords hypergeometric normal
 #' @export
 #' @examples
-#' ISCAMHyperNorm(2, 52, 5, 26, lower.tail = T)
+#' iscam_hypernorm(2, 52, 5, 26, lower.tail = T)
 
-ISCAMHyperNorm <- function (k, total, succ, n, lower.tail){
+iscam_hypernorm <- function (k, total, succ, n, lower.tail){
   if (k < 1) 
     k = round((k * n * (total - n) + n * succ)/total)
   fail = total - succ

@@ -1,4 +1,4 @@
-#' ISCAMChiSqProb Function
+#' iscam_chisqprob Function
 #'
 #' This function calculates the upper tail probability for the chi-square distribution
 #' @param xval x value
@@ -6,9 +6,9 @@
 #' @keywords chi square
 #' @export
 #' @examples
-#' ISCAMChiSqProb(10, 4)
+#' iscam_chisqprob(10, 4)
 
-ISCAMChiSqProb <- function(xval, df){
+iscam_chisqprob <- function(xval, df){
   maxx <- max(20, xval, df)
   mydf <- data.frame(x = c(0, maxx))
   chisqprob = pchisq(xval, df, lower.tail = FALSE)

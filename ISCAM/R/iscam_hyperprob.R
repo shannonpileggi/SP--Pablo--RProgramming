@@ -1,4 +1,4 @@
-#' ISCAMHyperProb Function
+#' iscam_hyperprob Function
 #'
 #' This function calculates tail probabilities from the hypergeometric distribution.
 #' @param k number of successes of interest (integer) or difference in conditional proportions
@@ -9,9 +9,9 @@
 #' @keywords hypergeometric probability
 #' @export
 #' @examples
-#' ISCAMHyperProb(2, 52, 5, 13, lower.tail = FALSE)
+#' iscam_hyperprob(2, 52, 5, 13, lower.tail = FALSE)
 
-ISCAMHyperProb <- function(k, total, succ, n, lower.tail){
+iscam_hyperprob <- function(k, total, succ, n, lower.tail){
   if (k < 1 & k > 0) {k <- round((k*(total - n)*n + succ*n)/total)}
   fail <- total - succ
   thisx <- max(0, n - fail):min(n, succ)

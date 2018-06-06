@@ -1,4 +1,4 @@
-#' ISCAMAddtNorm Function
+#' iscam_addtnorm Function
 #'
 #' This function creates a histogram of the inputted variable and overlays a t density function with df degrees of freedom 
 #' and a normal density function.
@@ -7,9 +7,9 @@
 #' @keywords t
 #' @export
 #' @examples
-#' ISCAMAddtNorm(x, 3)
+#' iscam_addtnorm(x, 3)
  
-ISCAMAddtNorm <- function(x, df){
+iscam_addtnorm <- function(x, df){
     data <- data.frame(x)
     ggplot(data, aes(x)) +
       geom_histogram(aes(y = (..density..)), 

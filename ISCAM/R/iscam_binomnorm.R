@@ -1,4 +1,4 @@
-#' ISCAMBinomNorm Function
+#' iscam_binomnorm Function
 #'
 #' This function illustrates the normal approximation to the binomial. 
 #' @param k number of successes of interest
@@ -9,11 +9,11 @@
 #' @keywords binomial normal
 #' @export
 #' @examples
-#' ISCAMBinomNorm(20, 30, 0.5, direction = "above")
-#' ISCAMBinomNorm(10, 55, 0.10, direction = "below")
-#' ISCAMBinomNorm(13, 44, 0.40, direction = "two.sided")
+#' iscam_binomnorm(20, 30, 0.5, direction = "above")
+#' iscam_binomnorm(10, 55, 0.10, direction = "below")
+#' iscam_binomnorm(13, 44, 0.40, direction = "two.sided")
 
-ISCAMBinomNorm <- function(k, n, prob, direction){
+iscam_binomnorm <- function(k, n, prob, direction){
   # Creates x values from 0 to n
   thisx <- 0:n
   phat <- thisx / n  # Proportions for each x value

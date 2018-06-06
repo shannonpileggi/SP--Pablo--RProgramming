@@ -1,4 +1,4 @@
-#' ISCAMBinomProb Function
+#' iscam_binomprob Function
 #'
 #' This function calculates tail probabilities from the binomial distribution.  
 #' @param k number of successes of interest (must be an integer)
@@ -8,10 +8,10 @@
 #' @keywords binomial
 #' @export
 #' @examples
-#' ISCAMBinomProb(20, 30, 0.5, lower.tail = TRUE)
-#' ISCAMBinomProb(6, 20, 0.4, lower.tail = FALSE)
+#' iscam_binomprob(20, 30, 0.5, lower.tail = TRUE)
+#' iscam_binomprob(6, 20, 0.4, lower.tail = FALSE)
 
-ISCAMBinomProb <- function(k, n, prob, lower.tail){
+iscam_binomprob <- function(k, n, prob, lower.tail){
   myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob)) #graph's main title
   thisx <- 0:n #range of data (number of trials) 
   if (lower.tail){

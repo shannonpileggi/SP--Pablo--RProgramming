@@ -1,4 +1,4 @@
-#' ISCAMInvt Function
+#' iscam_invt Function
 #'
 #' This function calculates the t quantile of a specified probability.
 #' @param prob1 desired probability
@@ -7,12 +7,12 @@
 #' @keywords inverse t probability
 #' @export
 #' @examples
-#' ISCAMInvt(.35, 2, direction = "above")
-#' ISCAMInvt(.4, 3, direction = "below")
-#' ISCAMInvt(.45, 4, direction = "between")
-#' ISCAMInvt(.55, 5, direction = "outside")
+#' iscam_invt(.35, 2, direction = "above")
+#' iscam_invt(.4, 3, direction = "below")
+#' iscam_invt(.45, 4, direction = "between")
+#' iscam_invt(.55, 5, direction = "outside")
 
-ISCAMInvt <- function(prob1, df, direction){
+iscam_invt <- function(prob1, df, direction){
   mydf <- data.frame(x = c(-4, 4))
   upper <- qt(prob1, df, lower.tail = F)
   lower <- qt(prob1, df)

@@ -1,4 +1,4 @@
-#' ISCAMTwoSamplet Function
+#' iscam_twosamplet Function
 #'
 #' This function calculates a two sample t-test and/or interval from summary data. 
 #' @param x1 observed mean
@@ -13,9 +13,9 @@
 #' @keywords two sample t test
 #' @export
 #' @examples
-#' ISCAMTwoSamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
+#' iscam_twosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
 
-ISCAMTwoSamplet <- function(x1, sd1, n1, x2, sd2, n2, hypothesized=0, alternative = NULL, conf.level =0){
+iscam_twosamplet <- function(x1, sd1, n1, x2, sd2, n2, hypothesized=0, alternative = NULL, conf.level =0){
   cat("\n", "Two Sample t test\n", sep="","\n")
   statistic1=x1;   statistic2=x2
   statistic=statistic1-statistic2
