@@ -4,13 +4,6 @@ author: Noelle Pablo
 date: June 8, 2018
 autosize: true
 
-Overview
-========================================================
-
-- Updated R  
-- Adhered to Best Programming Practices in R
-- Bullet 3
-
 Investigating Statistical Concepts, Applications, and Methods (ISCAM)
 ========================================================
 
@@ -23,6 +16,79 @@ fundamental concepts <br /> and various applications of statistics.
   - JMP Journal
   - R Workspace
 
+ISCAM Functions
+========================================================
+type: prompt
+Seven Categories:
+- Summary Statistics
+- Data Visualization
+- Hypothesis Testing
+- Rejection Regions & Power
+- Probability Distributions & Quantiles
+- Normal Approximations
+- Histograms with Overlaid Density Curves
+
+Summary Statistics: iscamsummary
+========================================================
+```{r echo = FALSE}
+load("C:/Users/noell/Desktop/ISCAM.RData")
+```
+```{r}
+data("chickwts")
+iscamsummary(chickwts$weight, chickwts$feed)
+```
+
+Data Visualization: iscamboxplot
+========================================================
+<center>
+```{r}
+iscamboxplot(chickwts$weight, chickwts$feed, names = c("Weight", "Feed"))
+```
+</center>
+
+Summary Statistics: iscamsummary
+========================================================
+```{r}
+iscamsummary(chickwts$weight, chickwts$feed)
+```
+
+Hypothesis Testing: iscamtwosamplet
+========================================================
+```{r}
+iscamtwosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
+```
+
+Rejection Region & Power: iscambinompower
+========================================================
+```{r}
+iscambinompower(.05, 20, 0.25, alternative = "greater", 0.333)
+```
+
+Probability Distributions & Quantiles: iscamhyperprob
+========================================================
+Suppose we select 5 cards from an ordinary deck of playing cards. What is the probability of obtaining 2 or fewer hearts?
+<center>
+```{r}
+iscamhyperprob(2, 52, 5, 13, lower.tail = TRUE)
+```
+<center>
+
+Normal Approximations: iscambinomnorm
+========================================================
+<center>
+```{r}
+iscambinomnorm(20, 30, 0.5, direction = "above")
+```
+</center>
+
+Histograms with Overlaid Density Curves
+========================================================
+<center>
+```{r}
+x <- rexp(100)
+iscamaddexp(x)
+```
+</center>
 
 R Workspace
 ========================================================
@@ -38,6 +104,39 @@ load("C:/Users/noell/Desktop/ISCAM.RData")
 ![alt text](http://i66.tinypic.com/20szi8y.png)
 </center>
 
+R Packages
+========================================================
+type: prompt
+- Bundles together code, data, documentation, and tests
+- Easy to share with others
+- 12,000+ packages in Comprehensive R Archive Network (CRAN)
+- Make life easier
+
+<center>
+![Popular R Packages](http://i66.tinypic.com/k2ij34.png)
+</center>
+
+Gender Gap in Creating R Packages
+========================================================
+- Underrepresentation of Women in R Community
+- In 2016, 11% - 15% Package Authors "female"
+- Women in R Taskforce
+  - Improve the participation and experience of women in the R community.
+- R Ladies
+  - Facilitate female R programmers meeting and working together
+  
+Documentation
+========================================================
+type: prompt
+- One of the most important aspects of a package 
+- How to use your package 
+- What functions are supposed to do
+  - Descriptions of arguments
+  - Examples
+- Vignette
+  - Long-form documentation
+  - Find function that you need
+
 ISCAM Function Documentation
 ========================================================
 ```{r error = TRUE}
@@ -45,14 +144,127 @@ iscamaddexp("?")
 iscambinompower("?")
 ```
 
-ISCAM Functions Code
+Create an ISCAM R Package
+========================================================
+Packages used: 
+- devtools
+  - Develop package
+- roxygen2 
+  - Write documentation
+- ggplot2 
+  - Graphics
+- gridExtra
+  - Arrange plots
+- skimr
+  - Summaries of data
+
+Updating Functions
+========================================================
+type: prompt
+- Best programming practices
+- Improve readability
+- Utilize ggplot
+
+Best Programming Practices
+========================================================
+Hadley Wickam's Style Guide
+ 
+# Assignment 
+
+## Good
+`x <- 5`
+
+## Bad
+`x = 5`
+ 
+# Spacing
+
+## Good
+`average <- mean(feet / 12 + inches, na.rm = TRUE)`
+
+## Bad
+`average<-mean(feet/12+inches,na.rm=TRUE)`
+
+Best Programming Practices
+========================================================
+# Object Names 
+
+## Good
+`day_one`
+
+`day_1`
+
+## Bad
+`first_day_of_the_month`
+
+`DayOne`
+
+`dayone`
+
+`djm1`
+
+# Line Length
+80 characters per line
+
+Best Programming Practices
+========================================================
+# Commenting
+- Should explain why, not what
+- # followed by a single space
+- Short comments after code preceded by two spaces
+```{r, eval=F, echo=T}
+# Create histogram of frequency of campaigns by pct budget spent.
+hist(df$pct.spent,
+     breaks = "scott",  # method for choosing number of buckets
+     main   = "Histogram: fraction budget spent by campaignid",
+     xlab   = "Fraction of budget spent",
+     ylab   = "Frequency (count of campaignids)")
+```
+Before 
 ========================================================
 
+```{r, eval=F, echo=T}
+function(k, n, prob, direction){
+    
+    if(as.character(k)=="?") stop(Description)
+    
+    thisx = 0:n
+    phat=thisx/n
+    minx=max(0, n*prob-4*sqrt(prob*(1-prob)*n))
+    maxx=min(n, n*prob+4*sqrt(prob*(1-prob)*n))
+    myy=dbinom(floor(n*prob), n, prob)/2
+    plot(thisx, dbinom(thisx, size=n, prob), xlab="X=Number of Successes (Proportion)", ylab="Probability",  type="h", xlim=c(minx, maxx))
+    abline(h=0, col="gray")
+    axis(side=1,at = thisx, labels=signif(phat,2), padj=1.2, tick=FALSE, col.axis="blue")
+    normmean=n*prob
+    normsd=sqrt(n*prob*(1-prob))
+    normseq=seq(0,n,.001)
+    lines(normseq, dnorm(normseq, normmean, normsd), col=3)
+```
 
-New Section
+After
 ========================================================
-type: section
-- hi
-
-
-
+```{r, eval=F, echo=T}
+iscam_binomnorm <- function(k, n, prob, direction){
+  # Creates x values from 0 to n
+  thisx <- 0:n
+  phat <- thisx / n  # Proportions for each x value
+  
+  # Calculating x limits for graph
+  minx <- floor(max(0, n * prob - 4 * sqrt(prob * (1 - prob) * n)))
+  maxx <- ceiling(min(n, n * prob + 4 * sqrt(prob * (1 - prob) * n)))
+  
+  # Calculating mean & sd for normal approx.
+  normmean <- n * prob
+  normsd <- sqrt(n * prob * (1 - prob))
+  
+  # Putting data into data frame
+  df <- data.frame(x = thisx, y = dbinom(thisx, n, prob))  
+  
+  # Determining x tick marks & x tick labels
+  xticks <- seq(from = minx,
+                to = maxx,
+                by = round((maxx - minx) / 7, 0))
+  perc <- round(xticks / n, 2) # Calculate proportions for each x tick
+  l <- paste(round(xticks, 1), perc, sep = "\n")  # x tick labels
+```
