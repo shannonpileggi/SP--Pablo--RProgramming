@@ -4,34 +4,74 @@ author: Noelle Pablo
 date: June 8, 2018
 autosize: true
 
-Introduction
+Overview
 ========================================================
 
-For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
-
-- Bullet 1
-- Bullet 2
+- Updated R  
+- Adhered to Best Programming Practices in R
 - Bullet 3
 
-Background
+Investigating Statistical Concepts, Applications, and Methods (ISCAM)
 ========================================================
 
-![ISCAM Textbook](http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg)
+<img style="float: right;" src="http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg">
 - Introduces students to
-fundamental concepts and various applications of statistics. 
-- Accompanying the textbook are a
-variety of technological tools 
-  -    R functions used to graph probability
-distributions, perform various hypothesis tests, calculate summary statistics,
+fundamental concepts <br /> and various applications of statistics. 
+- Used in 20 Academic Institutions
+- Technological tools 
+  - Applets
+  - JMP Journal
+  - R Workspace
 
 
-Example Function
+R Workspace
 ========================================================
 
+- 26 ISCAM Functions
+- Easy to share
+- Holds any user-defined objects
+- Lack of function documentation
 
 ```r
-x <- rexp(50)
-iscamaddexp(x)
+load("C:/Users/noell/Desktop/ISCAM.RData")
+```
+<center>
+![alt text](http://i66.tinypic.com/20szi8y.png)
+</center>
+
+ISCAM Function Documentation
+========================================================
+
+```r
+iscamaddexp("?")
 ```
 
-![plot of chunk unnamed-chunk-2](ISCAMPresentation-figure/unnamed-chunk-2-1.png)
+```
+Error in iscamaddexp("?"): iscamaddexp(x) 
+ This function creates a histogram of the inputted variable 
+ and overlays an exponetial density function with lambda = 1/mean.
+```
+
+```r
+iscambinompower("?")
+```
+
+```
+Error in iscambinompower("?"): iscambinompower(LOS, n, prob1, alternative, prob2) 
+ This function determines the rejection region 
+ corresponding to the level of significance and the first probability 
+ and shows the second distribution shading its corresponding region. 
+ alternative can be "less", "greater", or "two.sided".
+```
+
+ISCAM Functions Code
+========================================================
+
+
+New Section
+========================================================
+type: section
+- hi
+
+
+
