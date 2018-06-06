@@ -5,12 +5,10 @@ Authors@R: person("Noelle", "Pablo", email = "noellebpablo@gmail.com", role = c(
 Description: This package includes various functions that accompany the textbook,
     Investigating Statistical Concepts, Applications, and Methods (ISCAM), 
     written by Beth Chance and Allan Rossman.
-Depends: R (>= 3.4.3)
+Depends: R (>= 3.4.3), ggplot2, skimr, gridExtra
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1.9000
-Imports: ggplot2, skimr, gridExtra
-Depends: ggplot2, skimr, gridExtra
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
