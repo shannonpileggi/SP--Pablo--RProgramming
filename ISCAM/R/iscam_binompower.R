@@ -1,4 +1,4 @@
-#' ISCAMBinomPower Function
+#' iscam_binompower Function
 #'
 #' This function determines the rejection region corresponding to the level of 
 #' significance and the first probability. 
@@ -13,13 +13,13 @@
 #' @keywords binomial power rejection region
 #' @export
 #' @examples
-#' ISCAMBinomPower(.05, 30, 0.5, alternative = "greater")
-#' ISCAMBinomPower(.10, 55, 0.10, alternative = "less")
-#' ISCAMBinomPower(.05, 20, 0.5, "two.sided", 0.6)
-#' ISCAMBinomPower(.05, 20, 0.25, alternative = "greater",0.333, explain = T)
+#' iscam_binompower(.05, 30, 0.5, alternative = "greater")
+#' iscam_binompower(.10, 55, 0.10, alternative = "less")
+#' iscam_binompower(.05, 20, 0.5, "two.sided", 0.6)
+#' iscam_binompower(.05, 20, 0.25, alternative = "greater",0.333, explain = T)
 
 
-ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = FALSE){
+iscam_binompower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = FALSE){
   # Calculating x limits for graph
   minx <-
     max(0, min(n * prob1 - 4 * sqrt(prob1 * (1 - prob1) * n), n * prob2 - 4 *
@@ -32,7 +32,6 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
     substitute(paste("Binomial (", n == x1, ", ", pi == x2, ")",),
                list(x1 = n, x2 = prob1))
 
-  shadecolor <- ifelse(isTRUE(explain), "red", "#007f80")
   
   if (alternative=="less") {
     rr <- qbinom(LOS, n, prob1)-1 #finding rejection region
@@ -68,7 +67,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                           name="",
                           labels = "Type I Error")
     }
-    cat(paste("Probability ", rr, " and below = ", showprob1, sep = ""))
+    cat(paste("Probability ", rr, " and below = ", showprob1, "\n", sep = ""))
   } else if (alternative=="greater"){
     rr <- qbinom(LOS, n, prob1, FALSE)+1
     this.prob1 <- 1-pbinom(rr-1, n, prob1)
@@ -101,7 +100,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                           name="",
                           labels = "Type I Error")
     }
-    cat(paste("Probability ", rr, " and above = ", showprob1, sep = ""))
+    cat(paste("Probability ", rr, " and above = ", showprob1, "\n", sep = ""))
   }  else if (alternative=="two.sided"){
     lowerrr <- qbinom(LOS/2, n, prob1) - 1
     upperrr <- qbinom(LOS/2, n, prob1, FALSE) + 1
@@ -137,7 +136,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                           name="",
                           labels = "Type I Error")
       }
-    cat(paste("Probability in rejection region = ", showprob1, sep=""))
+    cat(paste("Probability in rejection region = ", showprob1, "\n", sep=""))
   }
   else stop("Check input for alternative")
   if (!is.null(prob2)){
@@ -176,6 +175,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                             name="",
                             labels=c("Power", "Type II Error")) 
       }
+      cat("Probability", rr, "and below =", showprob2)
     }
     else if (alternative == "greater"){
       this.prob2 <- 1 - pbinom(rr-1, n, prob2)
@@ -211,6 +211,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                             name="",
                             labels=c("Power", "Type II Error")) 
       }
+      cat("Probability", rr, "and above =", showprob2)
     }
     else if (alternative=="two.sided"){
       this.prob2=pbinom(lowerrr, n, prob2)+pbinom(upperrr-1, n, prob2, FALSE)
@@ -246,6 +247,7 @@ ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = 
                             name="",
                             labels=c("Power", "Type II Error")) 
       }
+      cat("Probability in rejection region =", showprob2, "\n")
     } else stop("Check input for alternative")
     plot1 <- plot1 + xlim(minx, maxx) +
       labs(x = "Number of Successess",

@@ -21,4 +21,4 @@ load("C:/Users/noell/Desktop/ISCAM.RData")
 
 # Creating Vignette
 library(knitr)
-devtools::use_vignette("my-vignette")
+devtools::use_vignette("ISCAM")
