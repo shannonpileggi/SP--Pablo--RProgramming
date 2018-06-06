@@ -14,19 +14,27 @@
 #' ISCAMBinomNorm(13, 44, 0.40, direction = "two.sided")
 
 ISCAMBinomNorm <- function(k, n, prob, direction){
-  thisx = 0:n
-  phat=thisx/n
-  minx <- floor(max(0, n*prob-4*sqrt(prob*(1-prob)*n)))
-  maxx <- ceiling(min(n, n*prob+4*sqrt(prob*(1-prob)*n)))
-  normmean <- n*prob
-  normsd <- sqrt(n*prob*(1-prob))
-  #myTitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, "), Normal(", mean==x3, ",  ", SD==x4, ")" ), list(x1=n, x2=prob, x3=prob, x4=signif(normsd/n,4))) #graph's main title
-  df <- data.frame(x = thisx, y = dbinom(thisx, n, prob)) #putting data into data frame
-  xticks <- seq(from = minx, to = maxx, by = round((maxx-minx)/7,0))
-  perc <- round(xticks/n, 2)
-  l <- paste(round(xticks, 1), perc, sep = "\n")
+  # Creates x values from 0 to n
+  thisx <- 0:n
+  phat <- thisx / n  # Proportions for each x value
   
-  breaks <- seq(minx,maxx, length.out = 6)
+  # Calculating x limits for graph
+  minx <- floor(max(0, n * prob - 4 * sqrt(prob * (1 - prob) * n)))
+  maxx <- ceiling(min(n, n * prob + 4 * sqrt(prob * (1 - prob) * n)))
+  
+  # Calculating mean & sd for normal approx.
+  normmean <- n * prob
+  normsd <- sqrt(n * prob * (1 - prob))
+  
+  # Putting data into data frame
+  df <- data.frame(x = thisx, y = dbinom(thisx, n, prob))  
+  
+  # Determining x tick marks & x tick labels
+  xticks <- seq(from = minx,
+                to = maxx,
+                by = round((maxx - minx) / 7, 0))
+  perc <- round(xticks / n, 2) # Calculate proportions for each x tick
+  l <- paste(round(xticks, 1), perc, sep = "\n")  # x tick labels
   
   
   if (direction =="below"){

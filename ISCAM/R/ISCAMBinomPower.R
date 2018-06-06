@@ -20,10 +20,17 @@
 
 
 ISCAMBinomPower <- function(LOS, n, prob1, alternative, prob2 = NULL, explain = FALSE){
-  minx <- max(0, min(n*prob1-4*sqrt(prob1*(1-prob1)*n), n*prob2-4*sqrt(prob2*(1-prob2)*n))) #truncating what is shown on graph
-  maxx <- min(n, max(n*prob1+4*sqrt(prob1*(1-prob1)*n), n*prob2+4*sqrt(prob2*(1-prob2)*n)))
+  # Calculating x limits for graph
+  minx <-
+    max(0, min(n * prob1 - 4 * sqrt(prob1 * (1 - prob1) * n), n * prob2 - 4 *
+                 sqrt(prob2 * (1 - prob2) * n)))
+  maxx <-
+    min(n, max(n * prob1 + 4 * sqrt(prob1 * (1 - prob1) * n), n * prob2 + 4 *
+                 sqrt(prob2 * (1 - prob2) * n)))
   thisx = 0:n
-  maintitle <- substitute(paste("Binomial (", n==x1,", ", pi==x2, ")", ), list(x1=n, x2=prob1))
+  maintitle <-
+    substitute(paste("Binomial (", n == x1, ", ", pi == x2, ")",),
+               list(x1 = n, x2 = prob1))
 
   shadecolor <- ifelse(isTRUE(explain), "red", "#007f80")
   
