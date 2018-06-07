@@ -1,13 +1,14 @@
 Building an ISCAM Package Using Best Programming Practices in R
 ========================================================
 author: Noelle Pablo
-date: June 8, 2018
+date: June 7, 2018
 autosize: true
+
 
 Investigating Statistical Concepts, Applications, and Methods (ISCAM)
 ========================================================
 
-<img style="float: right;" src="http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg">
+<img style="float: right;" src="http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg" width=200 height=300>
 - Introduces students to
 fundamental concepts <br /> and various applications of statistics. 
 - Used in 20 Academic Institutions
@@ -19,7 +20,7 @@ fundamental concepts <br /> and various applications of statistics.
 ISCAM Functions
 ========================================================
 type: prompt
-Seven Categories:
+## Seven Categories:
 - Summary Statistics
 - Data Visualization
 - Hypothesis Testing
@@ -28,41 +29,18 @@ Seven Categories:
 - Normal Approximations
 - Histograms with Overlaid Density Curves
 
-Summary Statistics: iscamsummary
-========================================================
 ```{r echo = FALSE}
 load("C:/Users/noell/Desktop/ISCAM.RData")
 ```
-```{r}
-data("chickwts")
-iscamsummary(chickwts$weight, chickwts$feed)
-```
 
-Data Visualization: iscamboxplot
-========================================================
-<center>
-```{r}
-iscamboxplot(chickwts$weight, chickwts$feed, names = c("Weight", "Feed"))
-```
-</center>
-
-Summary Statistics: iscamsummary
-========================================================
-```{r}
-iscamsummary(chickwts$weight, chickwts$feed)
-```
 
 Hypothesis Testing: iscamtwosamplet
 ========================================================
-```{r}
+<center>
+```{r fig1, fig.height = 3, fig.width = 5}
 iscamtwosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
 ```
-
-Rejection Region & Power: iscambinompower
-========================================================
-```{r}
-iscambinompower(.05, 20, 0.25, alternative = "greater", 0.333)
-```
+</center>
 
 Probability Distributions & Quantiles: iscamhyperprob
 ========================================================
@@ -81,14 +59,6 @@ iscambinomnorm(20, 30, 0.5, direction = "above")
 ```
 </center>
 
-Histograms with Overlaid Density Curves
-========================================================
-<center>
-```{r}
-x <- rexp(100)
-iscamaddexp(x)
-```
-</center>
 
 R Workspace
 ========================================================
@@ -116,15 +86,6 @@ type: prompt
 ![Popular R Packages](http://i66.tinypic.com/k2ij34.png)
 </center>
 
-Gender Gap in Creating R Packages
-========================================================
-- Underrepresentation of Women in R Community
-- In 2016, 11% - 15% Package Authors "female"
-- Women in R Taskforce
-  - Improve the participation and experience of women in the R community.
-- R Ladies
-  - Facilitate female R programmers meeting and working together
-  
 Documentation
 ========================================================
 type: prompt
@@ -137,6 +98,12 @@ type: prompt
   - Long-form documentation
   - Find function that you need
   
+ISCAM Function Documentation
+========================================================
+```{r error = TRUE}
+iscambinompower("?")
+```
+
 Documentation
 ========================================================
 <img src="http://i66.tinypic.com/107rts8.png">
@@ -145,16 +112,19 @@ Vignette
 ========================================================
 <img src="http://i68.tinypic.com/ve536s.png" alt="">
 
-ISCAM Function Documentation
+Gender Gap in Creating R Packages
 ========================================================
-```{r error = TRUE}
-iscamaddexp("?")
-iscambinompower("?")
-```
+- Underrepresentation of Women in R Community
+- In 2016, 11% - 15% Package Authors "female"
+- Women in R Taskforce
+  - Improve the participation and experience of women in the R community.
+- R Ladies
+  - Facilitate female R programmers meeting and working together
+  
 
 Create an ISCAM R Package
 ========================================================
-Packages used: 
+## Packages used: 
 - devtools
   - Develop package
 - roxygen2 
@@ -170,12 +140,13 @@ Updating Functions
 ========================================================
 type: prompt
 - Best programming practices
+  - Hadley Wickam's Style Guide
 - Improve readability
-- Utilize ggplot
+- Utilize other R packages
 
 Best Programming Practices
 ========================================================
-Hadley Wickam's Style Guide
+
  
 # Assignment 
 
@@ -184,7 +155,12 @@ Hadley Wickam's Style Guide
 
 ## Bad
 `x = 5`
- 
+
+# Line Length
+Limit to 80 characters per line
+
+Best Programming Practices
+========================================================
 # Spacing
 
 ## Good
@@ -211,9 +187,6 @@ Best Programming Practices
 
 `djm1`
 
-# Line Length
-80 characters per line
-
 Best Programming Practices
 ========================================================
 # Commenting
@@ -224,12 +197,11 @@ Best Programming Practices
 # Create histogram of frequency of campaigns by pct budget spent.
 hist(df$pct.spent,
      breaks = "scott",  # method for choosing number of buckets
-     main   = "Histogram: fraction budget spent by campaignid",
-     xlab   = "Fraction of budget spent",
-     ylab   = "Frequency (count of campaignids)")
+     main   = "Histogram: fraction budget spent by campaignid")
 ```
 Before 
 ========================================================
+iscambinomnorm
 
 ```{r, eval=F, echo=T}
 function(k, n, prob, direction){
@@ -279,12 +251,15 @@ iscam_binomnorm <- function(k, n, prob, direction){
 
 Before
 ========================================================
+<center>
 ```{r}
 iscambinompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333)
 ```
+</center>
 
 After
 ========================================================
+<center>
 ```{r, echo = FALSE}
 devtools::install_github("shannonpileggi/SP--Pablo--RProgramming/ISCAM", build_vignettes = TRUE)
 library(ISCAM)
@@ -292,20 +267,6 @@ library(ISCAM)
 
 ```{r}
 iscam_binompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333, explain = TRUE)
-```
-
-Before
-========================================================
-<center>
-```{r}
-iscambinomnorm(12, 15, .6, direction = "above")
-```
-</center>
-After
-========================================================
-<center>
-```{r}
-iscam_binomnorm(12, 15, .6, direction = "above")
 ```
 </center>
 
@@ -323,8 +284,16 @@ Next Step
 ========================================================
 ## Getting Package onto CRAN
 
-- `install.packages(“ISCAM”)`
+- `install.packages(“ISCAM”)` vs.
+
+`devtools::install_github("shannonpileggi/SP--Pablo--RProgramming/ISCAM", build_vignettes = TRUE)`
 - The process of getting a package on CRAN is lengthy and can be challenging
   - no errors, warnings, or significant notes
   - examples should run for no more than a few seconds each
   - the package’s license must give the right for CRAN to distribute the package in perpetuity
+  
+========================================================
+# THANK YOU!
+
+========================================================
+# Questions?

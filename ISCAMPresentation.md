@@ -1,13 +1,14 @@
 Building an ISCAM Package Using Best Programming Practices in R
 ========================================================
 author: Noelle Pablo
-date: June 8, 2018
+date: June 7, 2018
 autosize: true
+
 
 Investigating Statistical Concepts, Applications, and Methods (ISCAM)
 ========================================================
 
-<img style="float: right;" src="http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg">
+<img style="float: right;" src="http://www.rossmanchance.com/iscam3/ChanceCoverColor.jpg" width=200 height=300>
 - Introduces students to
 fundamental concepts <br /> and various applications of statistics. 
 - Used in 20 Academic Institutions
@@ -19,7 +20,7 @@ fundamental concepts <br /> and various applications of statistics.
 ISCAM Functions
 ========================================================
 type: prompt
-Seven Categories:
+## Seven Categories:
 - Summary Statistics
 - Data Visualization
 - Hypothesis Testing
@@ -28,55 +29,12 @@ Seven Categories:
 - Normal Approximations
 - Histograms with Overlaid Density Curves
 
-Summary Statistics: iscamsummary
-========================================================
 
 
-```r
-data("chickwts")
-iscamsummary(chickwts$weight, chickwts$feed)
-```
-
-```
-           n Min  Q1 Median  Q3 Max Mean   SD
-casein    12 216 277    342 371 404  324 64.4
-horsebean 10 108 137    152 176 227  160 38.6
-linseed   12 141 178    221 258 309  219 52.2
-meatmeal  11 153 250    263 320 380  277 64.9
-soybean   14 158 207    248 270 329  246 54.1
-sunflower 12 226 313    328 340 423  329 48.8
-```
-
-Data Visualization: iscamboxplot
-========================================================
-<center>
-
-```r
-iscamboxplot(chickwts$weight, chickwts$feed, names = c("Weight", "Feed"))
-```
-
-![plot of chunk unnamed-chunk-3](ISCAMPresentation-figure/unnamed-chunk-3-1.png)
-</center>
-
-Summary Statistics: iscamsummary
-========================================================
-
-```r
-iscamsummary(chickwts$weight, chickwts$feed)
-```
-
-```
-           n Min  Q1 Median  Q3 Max Mean   SD
-casein    12 216 277    342 371 404  324 64.4
-horsebean 10 108 137    152 176 227  160 38.6
-linseed   12 141 178    221 258 309  219 52.2
-meatmeal  11 153 250    263 320 380  277 64.9
-soybean   14 158 207    248 270 329  246 54.1
-sunflower 12 226 313    328 340 423  329 48.8
-```
 
 Hypothesis Testing: iscamtwosamplet
 ========================================================
+<center>
 
 ```r
 iscamtwosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
@@ -96,28 +54,12 @@ t-statistic: 3.271
 df: 15.17 
 ```
 
-![plot of chunk unnamed-chunk-5](ISCAMPresentation-figure/unnamed-chunk-5-1.png)
+![plot of chunk fig1](ISCAMPresentation-figure/fig1-1.png)
 
 ```
 p-value: 0.9975 
 ```
-
-Rejection Region & Power: iscambinompower
-========================================================
-
-```r
-iscambinompower(.05, 20, 0.25, alternative = "greater", 0.333)
-```
-
-```
-Probability 9 and above = 0.04092517 
-```
-
-![plot of chunk unnamed-chunk-6](ISCAMPresentation-figure/unnamed-chunk-6-1.png)
-
-```
-Probability 9 and above = 0.1896621 
-```
+</center>
 
 Probability Distributions & Quantiles: iscamhyperprob
 ========================================================
@@ -128,7 +70,7 @@ Suppose we select 5 cards from an ordinary deck of playing cards. What is the pr
 iscamhyperprob(2, 52, 5, 13, lower.tail = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-7](ISCAMPresentation-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-2](ISCAMPresentation-figure/unnamed-chunk-2-1.png)
 
 ```
 Probability 2 and below = 0.9072329 
@@ -147,7 +89,7 @@ Normal Approximations: iscambinomnorm
 iscambinomnorm(20, 30, 0.5, direction = "above")
 ```
 
-![plot of chunk unnamed-chunk-8](ISCAMPresentation-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-3](ISCAMPresentation-figure/unnamed-chunk-3-1.png)
 
 ```
  binomial: 0.04937 
@@ -156,17 +98,6 @@ iscambinomnorm(20, 30, 0.5, direction = "above")
 ```
 </center>
 
-Histograms with Overlaid Density Curves
-========================================================
-<center>
-
-```r
-x <- rexp(100)
-iscamaddexp(x)
-```
-
-![plot of chunk unnamed-chunk-9](ISCAMPresentation-figure/unnamed-chunk-9-1.png)
-</center>
 
 R Workspace
 ========================================================
@@ -195,15 +126,6 @@ type: prompt
 ![Popular R Packages](http://i66.tinypic.com/k2ij34.png)
 </center>
 
-Gender Gap in Creating R Packages
-========================================================
-- Underrepresentation of Women in R Community
-- In 2016, 11% - 15% Package Authors "female"
-- Women in R Taskforce
-  - Improve the participation and experience of women in the R community.
-- R Ladies
-  - Facilitate female R programmers meeting and working together
-  
 Documentation
 ========================================================
 type: prompt
@@ -216,26 +138,8 @@ type: prompt
   - Long-form documentation
   - Find function that you need
   
-Documentation
-========================================================
-<img src="http://i66.tinypic.com/107rts8.png">
-  
-Vignette
-========================================================
-<img src="http://i68.tinypic.com/ve536s.png" alt="">
-
 ISCAM Function Documentation
 ========================================================
-
-```r
-iscamaddexp("?")
-```
-
-```
-Error in iscamaddexp("?"): iscamaddexp(x) 
- This function creates a histogram of the inputted variable 
- and overlays an exponetial density function with lambda = 1/mean.
-```
 
 ```r
 iscambinompower("?")
@@ -249,9 +153,27 @@ Error in iscambinompower("?"): iscambinompower(LOS, n, prob1, alternative, prob2
  alternative can be "less", "greater", or "two.sided".
 ```
 
+Documentation
+========================================================
+<img src="http://i66.tinypic.com/107rts8.png">
+  
+Vignette
+========================================================
+<img src="http://i68.tinypic.com/ve536s.png" alt="">
+
+Gender Gap in Creating R Packages
+========================================================
+- Underrepresentation of Women in R Community
+- In 2016, 11% - 15% Package Authors "female"
+- Women in R Taskforce
+  - Improve the participation and experience of women in the R community.
+- R Ladies
+  - Facilitate female R programmers meeting and working together
+  
+
 Create an ISCAM R Package
 ========================================================
-Packages used: 
+## Packages used: 
 - devtools
   - Develop package
 - roxygen2 
@@ -267,12 +189,13 @@ Updating Functions
 ========================================================
 type: prompt
 - Best programming practices
+  - Hadley Wickam's Style Guide
 - Improve readability
-- Utilize ggplot
+- Utilize other R packages
 
 Best Programming Practices
 ========================================================
-Hadley Wickam's Style Guide
+
  
 # Assignment 
 
@@ -281,7 +204,12 @@ Hadley Wickam's Style Guide
 
 ## Bad
 `x = 5`
- 
+
+# Line Length
+Limit to 80 characters per line
+
+Best Programming Practices
+========================================================
 # Spacing
 
 ## Good
@@ -308,9 +236,6 @@ Best Programming Practices
 
 `djm1`
 
-# Line Length
-80 characters per line
-
 Best Programming Practices
 ========================================================
 # Commenting
@@ -322,12 +247,11 @@ Best Programming Practices
 # Create histogram of frequency of campaigns by pct budget spent.
 hist(df$pct.spent,
      breaks = "scott",  # method for choosing number of buckets
-     main   = "Histogram: fraction budget spent by campaignid",
-     xlab   = "Fraction of budget spent",
-     ylab   = "Frequency (count of campaignids)")
+     main   = "Histogram: fraction budget spent by campaignid")
 ```
 Before 
 ========================================================
+iscambinomnorm
 
 
 ```r
@@ -379,6 +303,7 @@ iscam_binomnorm <- function(k, n, prob, direction){
 
 Before
 ========================================================
+<center>
 
 ```r
 iscambinompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333)
@@ -388,14 +313,16 @@ iscambinompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 =
 Probability 15 and above = 0.02069473 
 ```
 
-![plot of chunk unnamed-chunk-15](ISCAMPresentation-figure/unnamed-chunk-15-1.png)
+![plot of chunk unnamed-chunk-9](ISCAMPresentation-figure/unnamed-chunk-9-1.png)
 
 ```
 Probability 15 and above = 0.0001652439 
 ```
+</center>
 
 After
 ========================================================
+<center>
 
 
 
@@ -408,42 +335,7 @@ Probability 15 and above = 0.02069
 Probability 15 and above = 0.0001652
 ```
 
-![plot of chunk unnamed-chunk-17](ISCAMPresentation-figure/unnamed-chunk-17-1.png)
-
-Before
-========================================================
-<center>
-
-```r
-iscambinomnorm(12, 15, .6, direction = "above")
-```
-
-![plot of chunk unnamed-chunk-18](ISCAMPresentation-figure/unnamed-chunk-18-1.png)
-
-```
- binomial: 0.0905 
- normal approx: 0.05692 
- normal approx with continuity: 0.09382 
-```
-</center>
-After
-========================================================
-<center>
-
-```r
-iscam_binomnorm(12, 15, .6, direction = "above")
-```
-
-![plot of chunk unnamed-chunk-19](ISCAMPresentation-figure/unnamed-chunk-19-1.png)
-
-```
-Binomial (n = 15, p = 0.6) 
-Normal(mean = 0.6, SD = 0.1265) 
-Pr(X = 12) = 
-Binomial: 0.0905
-Normal Approximation: 0.05692 
-Normal Approximation with Continuity: 0.09382
-```
+![plot of chunk unnamed-chunk-11](ISCAMPresentation-figure/unnamed-chunk-11-1.png)
 </center>
 
 Before
@@ -471,8 +363,16 @@ Next Step
 ========================================================
 ## Getting Package onto CRAN
 
-- `install.packages(“ISCAM”)`
+- `install.packages(“ISCAM”)` vs.
+
+`devtools::install_github("shannonpileggi/SP--Pablo--RProgramming/ISCAM", build_vignettes = TRUE)`
 - The process of getting a package on CRAN is lengthy and can be challenging
   - no errors, warnings, or significant notes
   - examples should run for no more than a few seconds each
   - the package’s license must give the right for CRAN to distribute the package in perpetuity
+  
+========================================================
+# THANK YOU!
+
+========================================================
+# Questions?
