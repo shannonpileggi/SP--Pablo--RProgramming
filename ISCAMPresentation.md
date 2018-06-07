@@ -215,6 +215,14 @@ type: prompt
 - Vignette
   - Long-form documentation
   - Find function that you need
+  
+Documentation
+========================================================
+<img src="http://i66.tinypic.com/107rts8.png">
+  
+Vignette
+========================================================
+<img src="http://i68.tinypic.com/ve536s.png" alt="">
 
 ISCAM Function Documentation
 ========================================================
@@ -368,3 +376,103 @@ iscam_binomnorm <- function(k, n, prob, direction){
   perc <- round(xticks / n, 2) # Calculate proportions for each x tick
   l <- paste(round(xticks, 1), perc, sep = "\n")  # x tick labels
 ```
+
+Before
+========================================================
+
+```r
+iscambinompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333)
+```
+
+```
+Probability 15 and above = 0.02069473 
+```
+
+![plot of chunk unnamed-chunk-15](ISCAMPresentation-figure/unnamed-chunk-15-1.png)
+
+```
+Probability 15 and above = 0.0001652439 
+```
+
+After
+========================================================
+
+
+
+```r
+iscam_binompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333, explain = TRUE)
+```
+
+```
+Probability 15 and above = 0.02069
+Probability 15 and above = 0.0001652
+```
+
+![plot of chunk unnamed-chunk-17](ISCAMPresentation-figure/unnamed-chunk-17-1.png)
+
+Before
+========================================================
+<center>
+
+```r
+iscambinomnorm(12, 15, .6, direction = "above")
+```
+
+![plot of chunk unnamed-chunk-18](ISCAMPresentation-figure/unnamed-chunk-18-1.png)
+
+```
+ binomial: 0.0905 
+ normal approx: 0.05692 
+ normal approx with continuity: 0.09382 
+```
+</center>
+After
+========================================================
+<center>
+
+```r
+iscam_binomnorm(12, 15, .6, direction = "above")
+```
+
+![plot of chunk unnamed-chunk-19](ISCAMPresentation-figure/unnamed-chunk-19-1.png)
+
+```
+Binomial (n = 15, p = 0.6) 
+Normal(mean = 0.6, SD = 0.1265) 
+Pr(X = 12) = 
+Binomial: 0.0905
+Normal Approximation: 0.05692 
+Normal Approximation with Continuity: 0.09382
+```
+</center>
+
+Before
+========================================================
+
+```r
+iscamsummary(chickwts$weight, chickwts$feed)
+```
+
+```
+           n Min  Q1 Median  Q3 Max Mean   SD
+casein    12 216 277    342 371 404  324 64.4
+horsebean 10 108 137    152 176 227  160 38.6
+linseed   12 141 178    221 258 309  219 52.2
+meatmeal  11 153 250    263 320 380  277 64.9
+soybean   14 158 207    248 270 329  246 54.1
+sunflower 12 226 313    328 340 423  329 48.8
+```
+
+After
+========================================================
+<img src="http://i66.tinypic.com/10xqyps.png" alt="">
+
+Next Step
+========================================================
+## Getting Package onto CRAN
+
+- `install.packages(“ISCAM”)`
+- The process of getting a package on CRAN is lengthy and can be challenging
+  - no errors, warnings, or significant notes
+  - examples should run for no more than a few seconds each
+  - the package’s license must give the right for CRAN to distribute the package in perpetuity

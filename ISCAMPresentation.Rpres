@@ -136,6 +136,14 @@ type: prompt
 - Vignette
   - Long-form documentation
   - Find function that you need
+  
+Documentation
+========================================================
+<img src="http://i66.tinypic.com/107rts8.png">
+  
+Vignette
+========================================================
+<img src="http://i68.tinypic.com/ve536s.png" alt="">
 
 ISCAM Function Documentation
 ========================================================
@@ -268,3 +276,55 @@ iscam_binomnorm <- function(k, n, prob, direction){
   perc <- round(xticks / n, 2) # Calculate proportions for each x tick
   l <- paste(round(xticks, 1), perc, sep = "\n")  # x tick labels
 ```
+
+Before
+========================================================
+```{r}
+iscambinompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333)
+```
+
+After
+========================================================
+```{r, echo = FALSE}
+devtools::install_github("shannonpileggi/SP--Pablo--RProgramming/ISCAM", build_vignettes = TRUE)
+library(ISCAM)
+```
+
+```{r}
+iscam_binompower(LOS = .05, n = 20, prob1 = .50, alternative = "greater", prob2 = 0.333, explain = TRUE)
+```
+
+Before
+========================================================
+<center>
+```{r}
+iscambinomnorm(12, 15, .6, direction = "above")
+```
+</center>
+After
+========================================================
+<center>
+```{r}
+iscam_binomnorm(12, 15, .6, direction = "above")
+```
+</center>
+
+Before
+========================================================
+```{r}
+iscamsummary(chickwts$weight, chickwts$feed)
+```
+
+After
+========================================================
+<img src="http://i66.tinypic.com/10xqyps.png" alt="">
+
+Next Step
+========================================================
+## Getting Package onto CRAN
+
+- `install.packages(“ISCAM”)`
+- The process of getting a package on CRAN is lengthy and can be challenging
+  - no errors, warnings, or significant notes
+  - examples should run for no more than a few seconds each
+  - the package’s license must give the right for CRAN to distribute the package in perpetuity
