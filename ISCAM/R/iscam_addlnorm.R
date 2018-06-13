@@ -8,16 +8,16 @@
 #' @examples
 #' iscam_addlnorm(x)
 
-iscam_addlnorm <- function(x){
-  df <- data.frame(x)
+iscam_addlnorm <- function(x) {
+  df <- data.frame(x) # Converting numeric vector x to a data frame
   ggplot(df, aes(x)) +
-  geom_histogram(aes(y = (..density..)), 
-                   binwidth = 0.1, 
-                   colour = "black", 
+    geom_histogram(aes(y = (..density..)), # Set density as y axis 
+                   binwidth = 0.1,
+                   colour = "black", # Color of outline of histogram
                    fill = "white") +
-  stat_function(geom = "line", 
-                  fun = dlnorm, 
-                  args = list(meanlog = mean(log(x)), sdlog = sd(log(x))), 
-                  colour = "red") +
-                  labs(y = "Percent")
+    stat_function(geom = "line", # Density curve
+      fun = dlnorm, # Log norm density curve
+      args = list(meanlog = mean(log(x)), sdlog = sd(log(x))), # Inputs for log normal dist.
+      colour = "red") +
+    labs(y = "Percent")
 }

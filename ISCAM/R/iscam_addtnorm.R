@@ -10,20 +10,27 @@
 #' iscam_addtnorm(x, 3)
  
 iscam_addtnorm <- function(x, df){
-    data <- data.frame(x)
+    data <- data.frame(x) # Converting inputted variable into a data frame
     ggplot(data, aes(x)) +
-      geom_histogram(aes(y = (..density..)), 
-                     binwidth = (max(x)-min(x))/20, 
-                     colour = "black", 
-                     fill = "white") +
-      stat_function(geom = "line", 
-                    fun = dt, 
-                    args = list(df = df), 
-                    aes(colour = "t")) +
-      stat_function(geom = "line", 
-                    fun = dnorm, 
-                    args = list(mean = mean(x), sd = sd(x)),
-                    aes(colour = "Normal")) +
+      geom_histogram( # Histogram of inputted variable
+        aes(y = (..density..)),
+        binwidth = (max(x) - min(x)) / 20,
+        colour = "black",
+        fill = "white"
+      ) +
+      stat_function( # t Density curve
+        geom = "line",
+        fun = dt,
+        args = list(df = df),
+        aes(colour = "t")
+      ) +
+      stat_function( # Normal density curve
+        geom = "line",
+        fun = dnorm,
+        args = list(mean = mean(x), sd = sd(x)),
+        aes(colour = "Normal")
+      ) +
       labs(y = "Density", x = deparse(substitute(x))) +
-      scale_colour_manual("Distribution", values = c("red", "green"))
+      # Editing legend
+      scale_colour_manual("Distribution", values = c("red", "green")) 
 }
