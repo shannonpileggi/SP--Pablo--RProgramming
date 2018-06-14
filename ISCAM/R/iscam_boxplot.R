@@ -13,23 +13,41 @@
 #' iscam_boxplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
 
 
-iscam_boxplot <- function(x, explanatory = NULL, names = NULL){
+iscam_boxplot <- function(x,
+                          explanatory = NULL,
+                          names = NULL) {
   df <- data.frame(x)
-  if(is.null(explanatory)){
-    ggplot(df, aes(x = "", y = x)) + 
-      geom_boxplot(outlier.colour="red", outlier.shape=8,
-                   outlier.size=2) +
+  if (is.null(explanatory)) {
+    ggplot(df, aes(x = "", y = x)) +
+      geom_boxplot(  
+        outlier.colour = "red",  # editing look of outliers
+        outlier.shape = 8,
+        outlier.size = 2
+      ) +
       coord_flip() +
-      labs(y = ifelse(is.null(names), deparse(substitute(x)), names),
+      # if names are not specified, use the x input as the y label
+      labs(y = ifelse(is.null(names), deparse(substitute(x)), names),  
            x = "")
   }
   else{
-    ggplot(df, aes(x = as.factor(explanatory), y = x, group = as.factor(explanatory), color = as.factor(explanatory))) + 
-      geom_boxplot(outlier.colour="red", outlier.shape=8,
-                   outlier.size=2) +
+    # if explanatory grouping variable is specified
+    ggplot(df,
+           aes(
+             x = as.factor(explanatory),
+             y = x,
+             group = as.factor(explanatory),
+             color = as.factor(explanatory)
+           )) +
+      geom_boxplot(
+        outlier.colour = "red",
+        outlier.shape = 8,
+        outlier.size = 2
+      ) +
       coord_flip() +
-      labs(y = ifelse(is.null(names), deparse(substitute(x)), names[1]), 
-           x = ifelse(is.null(names), deparse(substitute(explanatory)), names[2]), 
-           col = ifelse(is.null(names), deparse(substitute(explanatory)), names[2]))
+      labs(
+        y = ifelse(is.null(names), deparse(substitute(x)), names[1]),
+        x = ifelse(is.null(names), deparse(substitute(explanatory)), names[2]),
+        col = ifelse(is.null(names), deparse(substitute(explanatory)), names[2])
+      )
   }
 }

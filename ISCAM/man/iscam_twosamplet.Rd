@@ -31,6 +31,7 @@ This function calculates a two sample t-test and/or interval from summary data.
 }
 \examples{
 iscam_twosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, alternative = "less")
+iscam_twosamplet(97.25, 3.65, 8, 87.25, 9.60, 12, conf.level = .95)
 }
 \keyword{sample}
 \keyword{t}

@@ -12,22 +12,25 @@
 #' iscam_dotplot(chickwts$weight, names = "weight")
 #' iscam_dotplot(chickwts$weight, chickwts$feed, names = c("weight", "feed"))
 
-iscam_dotplot <- function(response, explanatory = NULL, names = NULL){
-  df <- data.frame(response)
-  min <- min(response)
-  max <- max(response)
-  if(is.null(explanatory)){
-    ggplot(df, aes(x = response)) + 
-      geom_dotplot(binwidth = 1) +
-      ylim(0, 2) +
-      #scale_y_continuous(NULL, breaks = NULL) + #removes y-axis
-      labs(x = ifelse(is.null(names), deparse(substitute(response)), names))
+iscam_dotplot <-
+  function(response,
+           explanatory = NULL,
+           names = NULL) {
+    df <- data.frame(response)  # putting data into a data frame
+    if (is.null(explanatory)) {
+      ggplot(df, aes(x = response)) +
+        geom_dotplot(binwidth = 1) +
+        ylim(0, 2) +
+        labs(x = ifelse(is.null(names), deparse(substitute(response)), names))
+    }
+    else{
+      # if explanatory grouping variable is specified
+      ggplot(df, aes(x = factor(explanatory), y = response)) +
+        geom_dotplot(binaxis = 'y', binwidth = 1) +
+        coord_flip() +  # flip boxplot
+        labs(
+          y = ifelse(is.null(names), deparse(substitute(x)), names[1]),
+          x = ifelse(is.null(names), deparse(substitute(explanatory)), names[2])
+        )
+    }
   }
-  else{
-    ggplot(df, aes(x = factor(explanatory), y = response)) + 
-      geom_dotplot(binaxis = 'y', binwidth = 1) + 
-      coord_flip() +
-      labs(y = ifelse(is.null(names), deparse(substitute(x)), names[1]), 
-           x = ifelse(is.null(names), deparse(substitute(explanatory)), names[2]))
-  }
-}

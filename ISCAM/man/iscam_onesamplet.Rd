@@ -26,6 +26,7 @@ This function calculates a one sample t-test and/or interval from summary statis
 \examples{
 iscam_onesamplet(70, 4, 25, hypothesized = 68, alternative = "greater")
 iscam_onesamplet(70, 4, 25, hypothesized = 68, conf.level = c(.90, .95))
+iscam_onesamplet(70, 4, 25, hypothesized = 68, conf.level = .99)
 }
 \keyword{one}
 \keyword{sample}
